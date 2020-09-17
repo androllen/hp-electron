@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -40,6 +40,27 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+  createMenu()
+}
+
+// 设置菜单栏
+function createMenu() {
+  // darwin表示macOS，针对macOS的设置
+  if (process.platform === 'darwin') {
+    const template = [{
+      label: 'App Demo',
+      submenu: [
+        { role: 'about' },
+        {
+          role: 'quit'
+        }]
+    }]
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
+  } else {
+    // windows及linux系统
+    Menu.setApplicationMenu(null)
+  }
 }
 
 // Quit when all windows are closed.
