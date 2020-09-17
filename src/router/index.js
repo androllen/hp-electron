@@ -1,22 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Shell from '../views/Shell.vue'
+
+const WafCheck = () => import('../views/modules/WafCheck.vue')
+const CdnDetect = () => import('../views/modules/CdnDetect.vue')
+const EmailGather = () => import('../views/modules/EmailGather.vue')
 
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/', redirect: '/info_cdn' },
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Shell,
+    children: [
+      { path: '/info_cdn', component: CdnDetect },
+      { path: '/info_waf', component: WafCheck },
+      { path: '/info_email', component: EmailGather }
+    ]
   }
 ]
 
