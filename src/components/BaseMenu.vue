@@ -44,6 +44,18 @@
 
 <script>
 export default {
+
+  methods: {
+    // https://www.jianshu.com/p/ecbbd6810f7f
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleOpen(key, keyPath) {
+      // this.$router.push({path:"/info_cdn"});
+      console.log(key, keyPath);
+    }
+
+  }
 }
 </script>
 

@@ -40,7 +40,18 @@ export default {
       }],
     }
   },
-
+  //当路由改变时，运行newpage函数
+  watch: {
+    '$route': 'newpage'
+  },
+  methods: {
+    newpage() {
+      console.log("");
+    },
+    handleCommand(command) {
+      this.$message('click on item ' + command);
+    }
+  },
 }
 </script>
 
