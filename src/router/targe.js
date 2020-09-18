@@ -1,3 +1,4 @@
+/*
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -18,3 +19,4 @@ const childRouter = new VueRouter({
 })
 
 export default childRouter
+*/
