@@ -105,5 +105,7 @@ export default {
 </script>
 
 <style scoped>
-
+p{
+  display: inline;
+}
 </style>

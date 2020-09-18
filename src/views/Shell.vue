@@ -15,7 +15,7 @@
       <BaseHistory/>
     </div>
     <div class="targe_div">
-      <BaseTarge />
+      <BaseTarget />
     </div>
     <div class="console_div">
      <BaseConsole/>
@@ -29,7 +29,7 @@
 import BaseSearch from '@/components/BaseSearch.vue';
 import BaseMenu from '@/components/BaseMenu.vue';
 import BaseHistory from '@/components/BaseHistory.vue';
-import BaseTarge from '@/components/BaseTarge.vue';
+import BaseTarget from '@/components/BaseTarget.vue';
 import BaseConsole from '@/components/BaseConsole.vue';
 
 export default {
@@ -38,7 +38,7 @@ export default {
     BaseSearch,
     BaseMenu,
     BaseHistory,
-    BaseTarge,
+    BaseTarget,
     BaseConsole
   },
 };
