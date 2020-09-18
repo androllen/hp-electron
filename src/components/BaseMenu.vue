@@ -15,6 +15,12 @@
           <el-menu-item index="/info_subdomain">子域名爆破</el-menu-item>
           <el-menu-item index="/info_webpath">Web 路径扫描</el-menu-item>
           <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+          <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+          <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+          <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+          <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+          <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+          <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
@@ -62,7 +68,7 @@ export default {
 <style scoped>
 #ele_div {
   width: 100%;
-  height: auto;
+  height: calc(100%-50px);
   position: absolute;
   background: green;
   text-align: left;

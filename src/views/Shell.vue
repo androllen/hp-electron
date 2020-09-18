@@ -1,45 +1,45 @@
 <template>
-<div id="app">
-  <div class="nav_div">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <div class="search_div">
-      <BaseSearch />
+  <div id="app">
+    <div class="nav_div">
+      <img alt="Vue logo" src="../assets/logo.png" />
+      <div class="search_div">
+        <BaseSearch />
+      </div>
+      <div class="menu_div">
+        <BaseMenu />
+      </div>
     </div>
-    <div class="menu_div">
-      <BaseMenu />
-    </div>
-  </div>
 
-  <div class="content_div">
-    <div class="history_div">
-      <BaseHistory/>
-    </div>
-    <div class="targe_div">
-      <BaseTarget />
-    </div>
-    <div class="console_div">
-     <BaseConsole/>
+    <div class="content_div">
+      <div class="history_div">
+        <BaseHistory />
+      </div>
+      <div class="targe_div">
+        <BaseTarget  />
+      </div>
+      <div class="console_div">
+        <BaseConsole />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld'
-import BaseSearch from '@/components/BaseSearch.vue';
-import BaseMenu from '@/components/BaseMenu.vue';
-import BaseHistory from '@/components/BaseHistory.vue';
-import BaseTarget from '@/components/BaseTarget.vue';
-import BaseConsole from '@/components/BaseConsole.vue';
+import BaseSearch from "@/components/BaseSearch.vue";
+import BaseMenu from "@/components/BaseMenu.vue";
+import BaseHistory from "@/components/BaseHistory.vue";
+import BaseTarget from "@/components/BaseTarget.vue";
+import BaseConsole from "@/components/BaseConsole.vue";
 
 export default {
-  name: 'Shell',
+  name: "Shell",
   components: {
     BaseSearch,
     BaseMenu,
     BaseHistory,
     BaseTarget,
-    BaseConsole
+    BaseConsole,
   },
 };
 </script>
@@ -86,7 +86,7 @@ export default {
   top: 0px;
   width: calc(100% - 250px);
   height: 100%;
-  border: 2px solid #f00;
+  border: 1px solid #f00;
   border-radius: 6px;
   background: gray;
   position: absolute;
