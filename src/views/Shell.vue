@@ -15,7 +15,7 @@
         <BaseHistory />
       </div>
       <div class="targe_div">
-        <BaseTarget  />
+        <BaseTarget />
       </div>
       <div class="console_div">
         <BaseConsole />
@@ -105,8 +105,10 @@ export default {
 }
 
 .console_div {
-  width: auto;
   height: 20%;
   background: aquamarine;
+  position: relative;
+  margin-top: 2px;
+  border: solid 1px red;
 }
 </style>
