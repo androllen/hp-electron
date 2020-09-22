@@ -63,8 +63,22 @@ var _data = {
   ],
 };
 
+
+//postData('data to process');
+function postData(input) {
+  $.ajax({
+    type: "POST",
+    url: "/reverse_pca.py",
+    data: { param: input },
+    success: callbackFunc
+  });
+}
+function callbackFunc(response) {
+  // do something with the response
+  console.log(response);
+}
+
 export default {
-  el: "#cdn",
   data() {
     return _data
   },
