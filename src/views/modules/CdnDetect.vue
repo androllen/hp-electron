@@ -4,12 +4,19 @@
       <el-row>
         <el-col id="input">
           <div>
-            <el-input ref="inputName" v-model="inputinfo" placeholder="请输入内容"></el-input>
+            <el-input
+              ref="inputName"
+              v-model="_target"
+              :disabled="_disable"
+              placeholder="请输入内容"
+            ></el-input>
           </div>
         </el-col>
         <el-col id="rightbtn">
           <div>
-            <el-button type="primary" @click="startTarget">开始</el-button>
+            <el-button type="primary" :disabled="_disable" @click="onStart"
+              >开始</el-button
+            >
           </div>
         </el-col>
         <el-col id="rightbtn">
@@ -22,7 +29,7 @@
     <div id="content">
       <p>扫描结果</p>
       <div>
-        <el-table :data="tableData" style="width: 100%">
+        <el-table :data="_tableData" style="width: 100%">
           <el-table-column prop="ip" label="IP" width="180"></el-table-column>
           <el-table-column prop="cname" label="CName"></el-table-column>
           <el-table-column prop="cdncompany" label="CDN厂商"></el-table-column>
@@ -33,54 +40,19 @@
 </template>
 
 <script>
+// https://blog.csdn.net/qq_40282732/article/details/104343595
+import shell from "../../service/shell";
+import { GUID } from "../../utils";
+
 var _data = {
-  msg: true,
-  title: "hello vue js",
-  reversemsg: "Hello",
-  primary: "primary",
-  inputinfo: "",
-  tableData: [
-    {
-      ip: "2016-05-02",
-      cname: "王小虎",
-      cdncompany: "上海市普陀区金沙江路 1518 弄",
-    },
-    {
-      ip: "2016-05-04",
-      cname: "王小虎",
-      cdncompany: "上海市普陀区金沙江路 1517 弄",
-    },
-    {
-      ip: "2016-05-01",
-      cname: "王小虎",
-      cdncompany: "上海市普陀区金沙江路 1519 弄",
-    },
-    {
-      ip: "2016-05-03",
-      cname: "王小虎",
-      cdncompany: "上海市普陀区金沙江路 1516 弄",
-    },
-  ],
+  _disable: false,
+  _target: "4dogs.cn",
+  _tableData: [],
 };
-
-
-//postData('data to process');
-function postData(input) {
-  $.ajax({
-    type: "POST",
-    url: "/reverse_pca.py",
-    data: { param: input },
-    success: callbackFunc
-  });
-}
-function callbackFunc(response) {
-  // do something with the response
-  console.log(response);
-}
 
 export default {
   data() {
-    return _data
+    return _data;
   },
   mounted() {
     this.$nextTick(() => {
@@ -88,15 +60,19 @@ export default {
     });
   },
   methods: {
-    startTarget() {
-      let inputinfo = this.inputinfo;
-      this.$notify({
-        title: inputinfo,
-        type: "success",
-        message:
-          "We've laid the ground work for you. It's time for you to build something epic!",
-        duration: 5000,
-      });
+    onStart() {
+      _disable = true;
+      var task = {
+        id: GUID(),
+        scriptid: "cdn_detect",
+        parameters: { url: this._target },
+      };
+
+      if (shell.Check(task) == true) {
+        shell.Subscribe(task, (data) => {
+          console.log("this ia public data");
+        });
+      }
     },
   },
 };
@@ -121,7 +97,7 @@ export default {
 #rightbtn {
   width: 10%;
 }
-#content{
+#content {
   margin: 00px 10px 10px;
 }
 p {
@@ -134,6 +110,4 @@ p {
 .el-col {
   border-radius: 4px;
 }
-
-
 </style>

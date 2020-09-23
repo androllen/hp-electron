@@ -3,7 +3,15 @@ export const importPage = view => () =>
   import(
     /* webpackChunkName: "group-targe" */
     `../views/modules/${view}.vue`
-  )
+	)
+	
+//生成随机 GUID 数
+export const GUID = () => {
+	function S4() {
+		return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+	}
+	return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
 
 // https://stackoverflow.com/questions/9514179/how-to-find-the-operating-system-version-using-javascript
 export const importWindow =()=>{
