@@ -4,19 +4,12 @@
       <el-row>
         <el-col id="input">
           <div>
-            <el-input
-              ref="inputName"
-              v-model="m_target"
-              :disabled="m_disable"
-              placeholder="请输入内容"
-            ></el-input>
+            <el-input ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="请输入内容"></el-input>
           </div>
         </el-col>
         <el-col id="rightbtn">
           <div>
-            <el-button type="primary" :disabled="m_disable" @click="onStart"
-              >开始</el-button
-            >
+            <el-button type="primary" :disabled="m_disable" @click="onStart">开始</el-button>
           </div>
         </el-col>
         <el-col id="rightbtn">
@@ -39,18 +32,18 @@
   </div>
 </template>
 
-<script type="module">
+<script type="text/javascript">
+
 import { sayHi } from "../../service/say.js";
 import { GUID } from "../../utils";
 
-
 // https://blog.csdn.net/qq_40282732/article/details/104343595
-import shell from "../../service/shell";
+// import Shell from "../../service/shell";
 
 var _data = {
   m_target: "4dogs.cn",
   m_disable: false,
-  m_tableData: [],
+  m_tableData: []
 };
 
 export default {
@@ -64,11 +57,11 @@ export default {
   },
   methods: {
     onStart() {
-	  m_disable = true;
+      m_disable = true;
       var task = {
         id: GUID(),
         scriptid: "cdn_detect",
-        parameters: { url: this.m_target },
+        parameters: { url: this.m_target }
       };
 
       //   if (shell.Check(task) == true) {
@@ -78,10 +71,9 @@ export default {
       //   }
     },
     onStop() {
-	  this.m_target=sayHi("John");
-
-	},
-  },
+      this.m_target = sayHi("John");
+    }
+  }
 };
 </script>
 

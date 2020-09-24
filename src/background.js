@@ -4,11 +4,15 @@ import { app, protocol, BrowserWindow, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { getShell } from './service'
+import Shell from './service/shell'
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let _shell
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -104,7 +108,14 @@ app.on('ready', async () => {
   }
 	createWindow()
 	getShell()
+	OpenShell();
+
 })
+
+function OpenShell() {
+	_shell = new Shell();
+	return _shell;
+}
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {

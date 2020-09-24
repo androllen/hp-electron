@@ -45,4 +45,4 @@ class Shell {
 }
 
 //启动 zmq 客户端
-export default new Shell();
+export default Shell;

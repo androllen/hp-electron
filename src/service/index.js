@@ -6,6 +6,7 @@ const util = require('util');
 const execFile = util.promisify(require('child_process').execFile);
 
 //https://www.cnblogs.com/fger/p/11994968.html
+//http://nodejs.cn/api/child_process.html
 //启动 zmq 服务端
 export async function getShell() {
 	let dirpath = join(dirname(__dirname), 'src', 'service', 'txpy', 'server.py');
