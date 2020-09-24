@@ -32,7 +32,7 @@ export default {
         value: 'c',
         label: '蚵仔煎'
       }, {
-        value: 'c',
+        value: 'd',
         label: '龙须面'
       }, {
         value: 'e',

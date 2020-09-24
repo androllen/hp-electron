@@ -2,7 +2,7 @@
 <div id="ele_div">
   <el-row class="tac">
     <el-col :span="24">
-      <el-menu router="true" default-active="/info_cdn" unique-opened="true" class="el-menu-vertical" @open="handleOpen" @select="handleSelect">
+      <el-menu router default-active="/info_cdn" class="el-menu-vertical" @open="handleOpen" @select="handleSelect">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>

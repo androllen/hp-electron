@@ -6,22 +6,22 @@
           <div>
             <el-input
               ref="inputName"
-              v-model="_target"
-              :disabled="_disable"
+              v-model="m_target"
+              :disabled="m_disable"
               placeholder="请输入内容"
             ></el-input>
           </div>
         </el-col>
         <el-col id="rightbtn">
           <div>
-            <el-button type="primary" :disabled="_disable" @click="onStart"
+            <el-button type="primary" :disabled="m_disable" @click="onStart"
               >开始</el-button
             >
           </div>
         </el-col>
         <el-col id="rightbtn">
           <div>
-            <el-button @click="startStop">停止</el-button>
+            <el-button @click="onStop">停止</el-button>
           </div>
         </el-col>
       </el-row>
@@ -29,7 +29,7 @@
     <div id="content">
       <p>扫描结果</p>
       <div>
-        <el-table :data="_tableData" style="width: 100%">
+        <el-table :data="m_tableData" style="width: 100%">
           <el-table-column prop="ip" label="IP" width="180"></el-table-column>
           <el-table-column prop="cname" label="CName"></el-table-column>
           <el-table-column prop="cdncompany" label="CDN厂商"></el-table-column>
@@ -39,15 +39,18 @@
   </div>
 </template>
 
-<script>
-// https://blog.csdn.net/qq_40282732/article/details/104343595
-import shell from "../../service/shell";
+<script type="module">
+import { sayHi } from "../../service/say.js";
 import { GUID } from "../../utils";
 
+
+// https://blog.csdn.net/qq_40282732/article/details/104343595
+import shell from "../../service/shell";
+
 var _data = {
-  _disable: false,
-  _target: "4dogs.cn",
-  _tableData: [],
+  m_target: "4dogs.cn",
+  m_disable: false,
+  m_tableData: [],
 };
 
 export default {
@@ -61,19 +64,23 @@ export default {
   },
   methods: {
     onStart() {
-      _disable = true;
+	  m_disable = true;
       var task = {
         id: GUID(),
         scriptid: "cdn_detect",
-        parameters: { url: this._target },
+        parameters: { url: this.m_target },
       };
 
-      if (shell.Check(task) == true) {
-        shell.Subscribe(task, (data) => {
-          console.log("this ia public data");
-        });
-      }
+      //   if (shell.Check(task) == true) {
+      //     shell.Subscribe(task, (data) => {
+      //       console.log("this ia public data");
+      //     });
+      //   }
     },
+    onStop() {
+	  this.m_target=sayHi("John");
+
+	},
   },
 };
 </script>

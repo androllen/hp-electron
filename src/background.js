@@ -26,7 +26,7 @@ function createWindow() {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       webSecurity: false,
-      nodeIntegration: true
+			nodeIntegration: true
     },
     // 固定宽高
     resizable: true,
