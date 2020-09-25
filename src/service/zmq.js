@@ -1,8 +1,8 @@
-var zmq = require("zeromq")
+var zmq = require('zeromq')
 const _reqhost = "tcp://127.0.0.1:5555";
 const _subhost = "tcp://127.0.0.1:50505";
 
-class Shell {
+class ZmqJs {
 	//定义构造方法 
 	//https://zeromq.org/languages/nodejs/
 	constructor() {
@@ -10,7 +10,9 @@ class Shell {
 		this.reqthost = _reqhost;
 		this.subhost = _subhost;
 	}
-
+	async Add() {
+		return '23333';
+	}
 	async Check(parameters) {
 		const sock = new zmq.Request
 		sock.connect(this.reqthost)
@@ -45,4 +47,4 @@ class Shell {
 }
 
 //启动 zmq 客户端
-export default Shell;
+export default ZmqJs;

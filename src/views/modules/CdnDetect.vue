@@ -36,9 +36,9 @@
 
 import { sayHi } from "../../service/say.js";
 import { GUID } from "../../utils";
-
+// import ZmqJs from "../../service/zmq";
 // https://blog.csdn.net/qq_40282732/article/details/104343595
-// import Shell from "../../service/shell";
+
 
 var _data = {
   m_target: "4dogs.cn",
@@ -63,7 +63,6 @@ export default {
         scriptid: "cdn_detect",
         parameters: { url: this.m_target }
       };
-
       //   if (shell.Check(task) == true) {
       //     shell.Subscribe(task, (data) => {
       //       console.log("this ia public data");
