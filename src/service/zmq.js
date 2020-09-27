@@ -1,7 +1,8 @@
-var zmq = require('zeromq')
+// export const zmq = window.require("zeromq")
+// console.log(zmq);
+var zmq = window.require('zeromq')
 const _reqhost = "tcp://127.0.0.1:5555";
 const _subhost = "tcp://127.0.0.1:50505";
-
 class ZmqJs {
 	//定义构造方法 
 	//https://zeromq.org/languages/nodejs/
@@ -11,7 +12,7 @@ class ZmqJs {
 		this.subhost = _subhost;
 	}
 	async Add() {
-		return '23333';
+		return 'hi';
 	}
 	async Check(parameters) {
 		const sock = new zmq.Request

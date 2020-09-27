@@ -4,12 +4,19 @@
       <el-row>
         <el-col id="input">
           <div>
-            <el-input ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="请输入内容"></el-input>
+            <el-input
+              ref="inputName"
+              v-model="m_target"
+              :disabled="m_disable"
+              placeholder="请输入内容"
+            ></el-input>
           </div>
         </el-col>
         <el-col id="rightbtn">
           <div>
-            <el-button type="primary" :disabled="m_disable" @click="onStart">开始</el-button>
+            <el-button type="primary" :disabled="m_disable" @click="onStart"
+              >开始</el-button
+            >
           </div>
         </el-col>
         <el-col id="rightbtn">
@@ -33,17 +40,15 @@
 </template>
 
 <script type="text/javascript">
-
+// https://blog.csdn.net/qq_40282732/article/details/104343595
 import { sayHi } from "../../service/say.js";
 import { GUID } from "../../utils";
-// import ZmqJs from "../../service/zmq";
-// https://blog.csdn.net/qq_40282732/article/details/104343595
-
+import ZmqJs from "../../service/zmq";
 
 var _data = {
   m_target: "4dogs.cn",
   m_disable: false,
-  m_tableData: []
+  m_tableData: [],
 };
 
 export default {
@@ -61,7 +66,7 @@ export default {
       var task = {
         id: GUID(),
         scriptid: "cdn_detect",
-        parameters: { url: this.m_target }
+        parameters: { url: this.m_target },
       };
       //   if (shell.Check(task) == true) {
       //     shell.Subscribe(task, (data) => {
@@ -70,9 +75,11 @@ export default {
       //   }
     },
     onStop() {
-      this.m_target = sayHi("John");
-    }
-  }
+      var zmqjs = new ZmqJs();
+      var add = zmqjs.Add();
+      add.then((val) => (this.m_target = val));
+    },
+  },
 };
 </script>
 
