@@ -1,8 +1,12 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Time: 2020/09/28 21:30:00
+# Contact: androllen#hotmail.com
+
 import logging
-# from concurrent_log_handler import ConcurrentRotatingFileHandler
 from logging.handlers import RotatingFileHandler
+
 
 class TXloger:
     def __init__(self):
@@ -37,7 +41,14 @@ class TXloger:
         self.LOGGER.setLevel(logging.DEBUG)
         return self.LOGGER
 
-txlogger = TXloger()
-LOGGER = txlogger.get_logger()
+
+def get_loger():
+    txlogger = TXloger().get_logger()
+    return txlogger
+
+
+def set_loger():
+    TXloger().set_debug()
+
 # txlogger.set_debug()
 # txlogger.get_logger('11111').debug("666")

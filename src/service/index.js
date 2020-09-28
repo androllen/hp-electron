@@ -9,7 +9,7 @@ const execFile = util.promisify(require('child_process').execFile);
 //http://nodejs.cn/api/child_process.html
 //启动 zmq 服务端
 export async function getShell() {
-	let dirpath = join(dirname(__dirname), 'src', 'service', 'txpy', 'server.py');
+	let dirpath = join(dirname(__dirname), 'txpy', 'server.py');
 	console.log(dirpath);
 	const { stdout } = await execFile('python', [dirpath, '-r', _reqhost, '-s', _subhost]);
 	console.log(stdout);

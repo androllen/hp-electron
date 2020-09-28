@@ -1,6 +1,6 @@
 // export const zmq = window.require("zeromq")
 // console.log(zmq);
-var zmq = window.require('zeromq')
+var zmq = require('zeromq')
 const _reqhost = "tcp://127.0.0.1:5555";
 const _subhost = "tcp://127.0.0.1:50505";
 class ZmqJs {

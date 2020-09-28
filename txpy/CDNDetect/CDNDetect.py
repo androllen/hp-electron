@@ -3,7 +3,7 @@
 import dns.resolver
 import json
 from urllib.parse import urlparse
-from txlog import LOGGER
+from service.txpy.utils import txlog
 
 dnslist = ["8.8.8.8", "114.114.114.114", "202.181.224.2", "202.106.0.20", "223.5.5.5", "180.76.76.76",
            "123.123.123.123"]
@@ -79,12 +79,13 @@ def main(pub_socket, task):
             domain = "http://" + domain
         hostname = urlparse(domain).hostname
         for dnsserver in dnslist:
-            getip(pub_socket, tmp_filter, hostname, dnsserver, iplist, cnamelist)
+            getip(pub_socket, tmp_filter, hostname,
+                  dnsserver, iplist, cnamelist)
     except Exception as e:
-        LOGGER.error(e)
+        txlog.get_loger.error(e)
         pub_socket.send_string(tmp_filter + "error_" + str(e))
     finally:
-        LOGGER.debug("cdn_check end")
+        txlog.get_loger.debug("cdn_check end")
         pub_socket.send_string(tmp_filter + "end!!!")
 
 

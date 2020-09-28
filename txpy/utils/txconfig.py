@@ -1,29 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-import requests
-
-requests.packages.urllib3.disable_warnings()
-from urllib.parse import urlparse
-from functools import partial
-from concurrent.futures import ThreadPoolExecutor
 import os
-
-MONGO_ADDR = 'mongodb://mongo:27017'
-# MONGO_ADDR = 'mongodb://127.0.0.1:27017'
-SPIDER_ADDR = "hspider:50051"
-# SPIDER_ADDR = "127.0.0.1:50051"
-
-def monkey_patch(param):
-    t = TX_requtsts(param)
-    requests.request = t.request
-    requests.get = t.get
-    requests.head = t.head
-    requests.post = t.post
-    requests.patch = t.patch
-    requests.put = t.put
-    requests.delete = t.delete
-    requests.options = t.options
+from concurrent.futures import ThreadPoolExecutor
+from functools import partial
+from urllib.parse import urlparse
+import requests
 
 
 class TX_requtsts():
@@ -79,7 +61,8 @@ class TXSession(requests.Session):
         kwargs.setdefault('headers', self.headers)
         kwargs.setdefault('verify', False)
         if self.TX_PARAM.get('cookies', ''):
-            kwargs['headers'].update({'cookies': self.TX_PARAM.get('cookies', '')})
+            kwargs['headers'].update(
+                {'cookies': self.TX_PARAM.get('cookies', '')})
         kwargs.setdefault('hooks', {'response': self.resp_hook})
 
         return super().request(method, url, **kwargs)
@@ -98,7 +81,7 @@ class TXSession(requests.Session):
 
         resp_str = """HTTP/%.1f %d %s
 """ % (rep.raw.version * 0.1, rep.raw.status,
-           rep.raw.reason)
+            rep.raw.reason)
         for k, v in dict(rep.headers).items():
             resp_str += f"""{k}: {v}
 """
@@ -136,9 +119,8 @@ class ScriptID:
 class Request_Param:
     # PROXY = None
     TIMEOUT = 5
-    HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0"}
-
-
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0"}
 
 
 class service_brute():
@@ -180,7 +162,8 @@ class service_brute():
 
     def run(self):
         for user, passwd in self.generate_task(self.users, self.passwds):
-            self.pool.submit(self.brute, (user, passwd)).add_done_callback(partial(self.mycall_back, user, passwd))
+            self.pool.submit(self.brute, (user, passwd)).add_done_callback(
+                partial(self.mycall_back, user, passwd))
         self.pool.shutdown()
 
     def mycall_back(self, user, passwd, output):
@@ -189,11 +172,11 @@ class service_brute():
             # return(user,passwd)
 
 
-if __name__ == '__main__':
-    param = {
-        "result": {'success': False, 'request': [], 'response': []}
-    }
-    t = TX_requtsts(param)
-    r = t.get("http://www.4dogs.cn")
-    print(r.status_code)
-    print(param)
+# if __name__ == '__main__':
+#     param = {
+#         "result": {'success': False, 'request': [], 'response': []}
+#     }
+#     t = TX_requtsts(param)
+#     r = t.get("http://www.4dogs.cn")
+#     print(r.status_code)
+#     print(param)

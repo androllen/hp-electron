@@ -9,7 +9,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 import zmq
 
-from utils import txconfig,txlog
+from .utils import txconfig
+# from txpy.utils.txlog import set_loger, get_loger
 
 
 def arg_parse():
@@ -18,6 +19,7 @@ def arg_parse():
     argparse.add_argument('-s', dest='pub', type=str, default='tcp://*:50505')
     argparse.add_argument('--debug', dest='debug', action='store_true')
     return argparse.parse_args()
+
 
 def __init_env(_update):
     result = False
@@ -37,7 +39,8 @@ def __init_env(_update):
                     if file_name.find('.py') < 0:
                         continue
                     file_name = file_name.split('.')[0]
-                    pkg_name = 'Framework' + root.replace(dir_path, '').replace(os.sep, '.') + '.'
+                    pkg_name = 'Framework' + \
+                        root.replace(dir_path, '').replace(os.sep, '.') + '.'
                     poc_dic[file_name] = pkg_name
                     # try:
                     #     _ = importlib.import_module(pkg_name + file_name)
@@ -55,8 +58,9 @@ def __init_env(_update):
 def start():
     # __init_env(True)
     args = arg_parse()
-    if args.debug:
-        txlog.txlogger.set_debug()
+    # if args.debug:
+    #     set_loger()
+
     rep_context = zmq.Context()
     rep_socket = rep_context.socket(zmq.REP)
     rep_socket.bind(args.rep)
@@ -71,7 +75,7 @@ def start():
         task = rep_socket.recv_string()
         try:
             task = json.loads(task)
-            txlog.LOGGER.debug(task)
+            # get_loger.debug(task)
             script_id = task.get('scriptid', '')
 
             script = txconfig.ScriptID.map_form[script_id]
