@@ -1,3 +1,5 @@
+// import { GUID } from "../utils";
+
 let zmq = undefined
 try {
 	zmq = require('zeromq')
@@ -7,49 +9,80 @@ try {
 
 const _reqhost = "tcp://127.0.0.1:5555";
 const _subhost = "tcp://127.0.0.1:50505";
+let ishas = true;
+
 class ZmqJs {
-	//定义构造方法 
-	//https://zeromq.org/languages/nodejs/
 	constructor() {
 		console.log("shell constructor")
 		this.reqthost = _reqhost;
 		this.subhost = _subhost;
+		this.sock = new zmq.Request
+		this.sock.connect(this.reqthost)
+
 	}
-	async Add() {
-		return 'hi';
-	}
+
 	async Check(parameters) {
 		const sock = new zmq.Request
 		sock.connect(this.reqthost)
-		console.log(this.reqthost)
+		console.log(parameters)
+
 		var text = JSON.stringify(parameters);
 		console.log(JSON.parse(text))
 		await sock.send(text)
 
 		const [result] = await sock.receive()
-
-		result = eval(result.toLowerCase())
-		result = JSON.parse(result);
-		console.log(result)
-		return result;
+		var auth = result.toString().toLowerCase()
+		var hasAuth = auth === 'true'
+		console.log(hasAuth)
+		return hasAuth;
 	}
-
-	async Subscribe(parameters, callback) {
+	async Subscribe(uid, handleResult) {
 		const sock = new zmq.Subscriber
 
 		sock.connect(this.subhost)
-		sock.subscribe(parameters)
+		sock.subscribe()
 		console.log("Subscriber connected")
-		const [result] = await sock.receive()
 
-		for await (const [topic, msg] of sock) {
-			console.log("received a message related to:", topic, "containing message:", msg)
+		while (ishas) {
+			const [topic, msg] = await sock.receive()
+			handleResult(topic.toString())
 		}
-		callback(topic.toString())
-		sock.close()
+		sock.unsubscribe();
+		console.log("Subscriber disconnected")
+
 	}
 
 }
 
-//启动 zmq 客户端
-export default ZmqJs;
+var task = {
+	id: "023feac1-4a5d-49c9-b540-8cac4241c99a",
+	scriptid: "cdn_detect",
+	parameters: { url: 'http://www.4dogs.cn/' },
+};
+
+let _zmq = new ZmqJs();
+if (_zmq.Check(task)) {
+	_zmq.Subscribe(task.id, (topic) => {
+		console.log("this ia public data");
+		console.log(topic);
+		var index = topic.indexOf(',');
+		var id = topic.substring(0, index - 1).trim();
+		var json = topic.substring(index + 1).trim();
+
+		if (json.startsWith("{") && json.endsWith("}")) {
+			console.log(json);
+
+		}
+		else if (json == "end!!!") {
+			ishas = false;
+			console.log("ishas = false ")
+		}
+		else if (json.StartsWith("error_")) {
+
+		}
+
+	});
+}
+
+// start zmq client
+// export default ZmqJs;

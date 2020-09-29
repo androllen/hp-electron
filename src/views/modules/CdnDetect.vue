@@ -45,7 +45,7 @@ import { GUID } from "../../utils";
 import ZmqJs from "../../service/zmq";
 
 var _data = {
-  m_target: "4dogs.cn",
+  m_target: "http://www.4dogs.cn",
   m_disable: false,
   m_tableData: [],
 };
@@ -61,22 +61,23 @@ export default {
   },
   methods: {
     onStart() {
-      m_disable = true;
+      this.m_disable = true;
       var task = {
         id: GUID(),
         scriptid: "cdn_detect",
         parameters: { url: this.m_target },
-      };
-      //   if (shell.Check(task) == true) {
-      //     shell.Subscribe(task, (data) => {
-      //       console.log("this ia public data");
-      //     });
-      //   }
+	  };
+	  console.log(task);
+        if (shell.Check(task) == 'true') {
+        //   shell.Subscribe(task, (data) => {
+        //     console.log("this ia public data");
+        //   });
+        }
     },
     onStop() {
-      var zmqjs = new ZmqJs();
-      var add = zmqjs.Add();
-      add.then((val) => (this.m_target = val));
+    //   var zmqjs = new ZmqJs();
+    //   var add = zmqjs.Add();
+    //   add.then((val) => (this.m_target = val));
     },
   },
 };
