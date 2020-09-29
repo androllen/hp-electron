@@ -1,26 +1,29 @@
-const _reqhost = "tcp://127.0.0.1:5555";
-const _subhost = "tcp://127.0.0.1:50505";
+const _reqhost = "tcp://127.0.0.1:5554";
+const _subhost = "tcp://127.0.0.1:50504";
 
-const { join, dirname } = require('path');
+var path = require('path');
 const util = require('util');
 const execFile = util.promisify(require('child_process').execFile);
 
 //https://www.cnblogs.com/fger/p/11994968.html
 //http://nodejs.cn/api/child_process.html
-//启动 zmq 服务端
+//mklink /d TXThrift D:\4Dogs\V3.0_TX\TXThrift
+//start zmq server 
 export async function getShell() {
-	let dirpath = join(dirname(__dirname), 'txpy', 'server.py');
+	var abcpath = path.join(__dirname, '../../');
+	let dirpath = path.join(abcpath, 'TXThrift', 'TX_WIN_VENV', 'python3.exe');
 	console.log(dirpath);
-	const { stdout } = await execFile('python', [dirpath, '-r', _reqhost, '-s', _subhost]);
+	let pypath = path.join(abcpath, 'TXThrift', 'TX_Py3', 'server.py');
+	console.log(pypath);
+	const { stdout } = await execFile(dirpath, [pypath, '-r', _reqhost, '-s', _subhost]);
 	console.log(stdout);
 }
 
-// 暴露静态资源
-// export const loadPython = () => {
-// 	getShell()
-// }
-
-// export default {
-// 	getShell
-// }
-
+async function getVersion() {
+	var abcpath = path.join(__dirname, '../../');
+	let dirpath = path.join(abcpath, 'TXThrift', 'TX_WIN_VENV', 'python3.exe');
+	console.log(dirpath);
+	const { stdout } = await execFile(dirpath, ['--version']);
+	console.log(stdout);
+}
+// getShell()
