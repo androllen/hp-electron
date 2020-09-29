@@ -25,7 +25,6 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld'
 import BaseSearch from "@/components/BaseSearch.vue";
 import BaseMenu from "@/components/BaseMenu.vue";
 import BaseHistory from "@/components/BaseHistory.vue";

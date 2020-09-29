@@ -41,7 +41,6 @@
 
 <script type="text/javascript">
 // https://blog.csdn.net/qq_40282732/article/details/104343595
-import { sayHi } from "../../service/say.js";
 import { GUID } from "../../utils";
 import ZmqJs from "../../service/zmq";
 

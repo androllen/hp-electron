@@ -1,7 +1,7 @@
-const _reqhost = "tcp://127.0.0.1:5554";
-const _subhost = "tcp://127.0.0.1:50504";
+const _reqhost = "tcp://127.0.0.1:5555";
+const _subhost = "tcp://127.0.0.1:50505";
 
-var path = require('path');
+const { join, dirname } = require('path');
 const util = require('util');
 const execFile = util.promisify(require('child_process').execFile);
 
@@ -10,20 +10,15 @@ const execFile = util.promisify(require('child_process').execFile);
 //mklink /d TXThrift D:\4Dogs\V3.0_TX\TXThrift
 //start zmq server 
 export async function getShell() {
-	var abcpath = path.join(__dirname, '../../');
-	let dirpath = path.join(abcpath, 'TXThrift', 'TX_WIN_VENV', 'python3.exe');
-	console.log(dirpath);
-	let pypath = path.join(abcpath, 'TXThrift', 'TX_Py3', 'server.py');
-	console.log(pypath);
-	const { stdout } = await execFile(dirpath, [pypath, '-r', _reqhost, '-s', _subhost]);
-	console.log(stdout);
-}
+	console.log('dirname', __dirname);
+	let _basePath = join(dirname(__dirname), 'TXThrift');
 
-async function getVersion() {
-	var abcpath = path.join(__dirname, '../../');
-	let dirpath = path.join(abcpath, 'TXThrift', 'TX_WIN_VENV', 'python3.exe');
-	console.log(dirpath);
-	const { stdout } = await execFile(dirpath, ['--version']);
+	let _venv = join(_basePath, 'TX_WIN_VENV', 'python3.exe');
+	console.log(_venv);
+
+	let _py = join(_basePath, 'TX_Py3', 'server.py');
+	console.log(_py);
+
+	const { stdout } = await execFile(_venv, [_py, '-r', _reqhost, '-s', _subhost]);
 	console.log(stdout);
 }
-// getShell()
