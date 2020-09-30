@@ -1,5 +1,3 @@
-// import { GUID } from "../utils";
-
 let zmq = undefined
 try {
 	zmq = require('zeromq')
@@ -16,9 +14,6 @@ class ZmqJs {
 		console.log("shell constructor")
 		this.reqthost = _reqhost;
 		this.subhost = _subhost;
-		this.sock = new zmq.Request
-		this.sock.connect(this.reqthost)
-
 	}
 
 	async Check(parameters) {
@@ -49,40 +44,38 @@ class ZmqJs {
 		}
 		sock.unsubscribe();
 		console.log("Subscriber disconnected")
-
 	}
-
 }
 
-var task = {
-	id: "023feac1-4a5d-49c9-b540-8cac4241c99a",
-	scriptid: "cdn_detect",
-	parameters: { url: 'http://www.4dogs.cn/' },
-};
+// var task = {
+// 	id: "023feac1-4a5d-49c9-b540-8cac4241c99a",
+// 	scriptid: "cdn_detect",
+// 	parameters: { url: 'http://www.4dogs.cn/' },
+// };
 
-let _zmq = new ZmqJs();
-if (_zmq.Check(task)) {
-	_zmq.Subscribe(task.id, (topic) => {
-		console.log("this ia public data");
-		console.log(topic);
-		var index = topic.indexOf(',');
-		var id = topic.substring(0, index - 1).trim();
-		var json = topic.substring(index + 1).trim();
+// let _zmq = new ZmqJs();
+// if (_zmq.Check(task)) {
+// 	_zmq.Subscribe(task.id, (topic) => {
+// 		console.log("this ia public data");
+// 		console.log(topic);
+// 		var index = topic.indexOf(',');
+// 		var id = topic.substring(0, index - 1).trim();
+// 		var json = topic.substring(index + 1).trim();
 
-		if (json.startsWith("{") && json.endsWith("}")) {
-			console.log(json);
+// 		if (json.startsWith("{") && json.endsWith("}")) {
+// 			console.log(json);
 
-		}
-		else if (json == "end!!!") {
-			ishas = false;
-			console.log("ishas = false ")
-		}
-		else if (json.StartsWith("error_")) {
+// 		}
+// 		else if (json == "end!!!") {
+// 			ishas = false;
+// 			console.log("ishas = false ")
+// 		}
+// 		else if (json.StartsWith("error_")) {
 
-		}
+// 		}
 
-	});
-}
+// 	});
+// }
 
 // start zmq client
-// export default ZmqJs;
+export default ZmqJs;

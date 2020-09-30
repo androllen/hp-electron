@@ -66,18 +66,31 @@ export default {
         id: GUID(),
         scriptid: "cdn_detect",
         parameters: { url: this.m_target },
-	  };
-	  console.log(task);
-        if (shell.Check(task) == 'true') {
-        //   shell.Subscribe(task, (data) => {
-        //     console.log("this ia public data");
-        //   });
-        }
+      };
+      console.log(task);
+      let _zmq = new ZmqJs();
+      if (_zmq.Check(task)) {
+        _zmq.Subscribe(task.id, (topic) => {
+          console.log("this ia public data");
+          console.log(topic);
+          var index = topic.indexOf(",");
+          var id = topic.substring(0, index - 1).trim();
+          var json = topic.substring(index + 1).trim();
+
+          if (json.startsWith("{") && json.endsWith("}")) {
+            console.log(json);
+          } else if (json == "end!!!") {
+            ishas = false;
+            console.log("ishas = false ");
+          } else if (json.StartsWith("error_")) {
+          }
+        });
+      }
     },
     onStop() {
-    //   var zmqjs = new ZmqJs();
-    //   var add = zmqjs.Add();
-    //   add.then((val) => (this.m_target = val));
+      //   var zmqjs = new ZmqJs();
+      //   var add = zmqjs.Add();
+      //   add.then((val) => (this.m_target = val));
     },
   },
 };
