@@ -67,33 +67,34 @@ export default {
         scriptid: "cdn_detect",
         parameters: { url: this.m_target },
       };
+      this.m_tableData = [];
       console.log(task);
-      let _zmq = new ZmqJs();
-      if (_zmq.Check(task)) {
-        _zmq.Subscribe(task.id, (topic) => {
-          console.log("this ia public data");
+      ZmqJs.HandleSend(task, (topic) => {
+        try {
           var index = topic.indexOf(",");
           var id = topic.substring(0, index - 1).trim();
           var json = topic.substring(index + 1).trim();
 
           if (json.startsWith("{") && json.endsWith("}")) {
-			var obj = JSON.parse(json);
-			console.log(obj);
-			this.m_tableData.push(obj);
-			this.m_disable=false;
-			return true;
-			
+            console.log("this ia public data");
+            var obj = JSON.parse(json);
+            console.log(obj);
+            this.m_tableData.push(obj);
+            this.m_disable = false;
           } else if (json == "end!!!") {
-            return false;
+            console.log("end!!!");
           } else if (json.StartsWith("error_")) {
+            console.log("error_");
           }
-        });
-	  }
-	  
-
+        } catch (e) {
+          console.log("error..");
+        } finally {
+          this.m_disable = false;
+        }
+      });
     },
     onStop() {
-		this.m_disable=false;
+      this.m_disable = false;
       //   var zmqjs = new ZmqJs();
       //   var add = zmqjs.Add();
       //   add.then((val) => (this.m_target = val));

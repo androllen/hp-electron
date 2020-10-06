@@ -1,49 +1,60 @@
 let zmq = undefined
 try {
-	zmq = require('zeromq')
+  zmq = require('zeromq')
 } catch (error) {
-	zmq = window.require('zeromq')
+  zmq = window.require('zeromq')
 }
 
 const _reqhost = "tcp://127.0.0.1:5555";
 const _subhost = "tcp://127.0.0.1:50505";
 let ishas = true;
 
+
 class ZmqJs {
-	constructor() {
-		console.log("shell constructor")
-		this.reqthost = _reqhost;
-		this.subhost = _subhost;
-	}
+  constructor() {
+    this.reqthost = _reqhost;
+    this.subhost = _subhost;
+    console.log("shell constructor")
+  }
 
-	async Check(parameters) {
-		const sock = new zmq.Request
-		sock.connect(this.reqthost)
+  async HandleSend(args, handleResult) {
+    const req_sock = new zmq.Request;
+    req_sock.connect(this.reqthost);
+    var text = JSON.stringify(args);
+    await req_sock.send(text)
+    const [result] = await req_sock.receive()
+    var auth = result.toString().toLowerCase()
+    var hasAuth = auth === 'true'
+    console.log("request complete")
 
-		var text = JSON.stringify(parameters);
-		await sock.send(text)
+    if (hasAuth) {
+      const sub_sock = new zmq.Subscriber
+      sub_sock.connect(this.subhost)
+      sub_sock.subscribe(args.id)
+      console.log("Subscriber connected")
 
-		const [result] = await sock.receive()
-		var auth = result.toString().toLowerCase()
-		var hasAuth = auth === 'true'
-		console.log(hasAuth)
-		return hasAuth;
-	}
-	async Subscribe(uid, handleResult) {
-		const sock = new zmq.Subscriber
+      while (true) {
+        const [topic, msg] = await sub_sock.receive()
+        // 回调函数
+        handleResult(topic.toString())
+        console.log("topic" + topic.toString())
+      }
+      // sub_sock.unsubscribe();
+      // sub_sock.close();
+    }
+  }
 
-		sock.connect(this.subhost)
-		sock.subscribe(uid)
-		console.log("Subscriber connected")
-
-		while (ishas) {
-			const [topic, msg] = await sock.receive()
-			ishas = handleResult(topic.toString())
-		}
-		sock.unsubscribe();
-		console.log("Subscriber disconnected")
-	}
 }
+
+ZmqJs.getInstance = (function () {
+  let instance
+  return function () {
+    if (!instance) {
+      instance = new ZmqJs();
+    }
+    return instance;
+  }
+})()
 
 // var task = {
 // 	id: "023feac1-4a5d-49c9-b540-8cac4241c99a",
@@ -51,29 +62,25 @@ class ZmqJs {
 // 	parameters: { url: 'http://www.4dogs.cn/' },
 // };
 
-// let _zmq = new ZmqJs();
-// if (_zmq.Check(task)) {
-// 	_zmq.Subscribe(task.id, (topic) => {
-// 		console.log("this ia public data");
-// 		console.log(topic);
-// 		var index = topic.indexOf(',');
-// 		var id = topic.substring(0, index - 1).trim();
-// 		var json = topic.substring(index + 1).trim();
+// var add = ZmqJs.getInstance()
+// add.HandleSend(task, topic => {
+// 	console.log("this ia public data");
+// 	var index = topic.indexOf(",");
+// 	var id = topic.substring(0, index - 1).trim();
+// 	var json = topic.substring(index + 1).trim();
 
-// 		if (json.startsWith("{") && json.endsWith("}")) {
-// 			console.log(json);
+// 	if (json.startsWith("{") && json.endsWith("}")) {
+// 		var obj = JSON.parse(json);
+// 		console.log(obj);
+// 		return true;
+// 	} else if (json == "end!!!") {
+// 		return false;
+// 	} else if (json.StartsWith("error_")) {
+// 	}
+// })
 
-// 		}
-// 		else if (json == "end!!!") {
-// 			ishas = false;
-// 			console.log("ishas = false ")
-// 		}
-// 		else if (json.StartsWith("error_")) {
 
-// 		}
 
-// 	});
-// }
 
 // start zmq client
-export default ZmqJs;
+export default ZmqJs.getInstance();
