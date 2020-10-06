@@ -31,8 +31,8 @@
       <div>
         <el-table :data="m_tableData" style="width: 100%">
           <el-table-column prop="ip" label="IP" width="180"></el-table-column>
-          <el-table-column prop="cname" label="CName"></el-table-column>
-          <el-table-column prop="cdncompany" label="CDN厂商"></el-table-column>
+          <el-table-column prop="CNAME" label="CName"></el-table-column>
+          <el-table-column prop="vendor" label="CDN厂商"></el-table-column>
         </el-table>
       </div>
     </div>
@@ -72,22 +72,28 @@ export default {
       if (_zmq.Check(task)) {
         _zmq.Subscribe(task.id, (topic) => {
           console.log("this ia public data");
-          console.log(topic);
           var index = topic.indexOf(",");
           var id = topic.substring(0, index - 1).trim();
           var json = topic.substring(index + 1).trim();
 
           if (json.startsWith("{") && json.endsWith("}")) {
-            console.log(json);
+			var obj = JSON.parse(json);
+			console.log(obj);
+			this.m_tableData.push(obj);
+			this.m_disable=false;
+			return true;
+			
           } else if (json == "end!!!") {
-            ishas = false;
-            console.log("ishas = false ");
+            return false;
           } else if (json.StartsWith("error_")) {
           }
         });
-      }
+	  }
+	  
+
     },
     onStop() {
+		this.m_disable=false;
       //   var zmqjs = new ZmqJs();
       //   var add = zmqjs.Add();
       //   add.then((val) => (this.m_target = val));

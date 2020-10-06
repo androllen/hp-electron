@@ -19,10 +19,8 @@ class ZmqJs {
 	async Check(parameters) {
 		const sock = new zmq.Request
 		sock.connect(this.reqthost)
-		console.log(parameters)
 
 		var text = JSON.stringify(parameters);
-		console.log(JSON.parse(text))
 		await sock.send(text)
 
 		const [result] = await sock.receive()
@@ -35,12 +33,12 @@ class ZmqJs {
 		const sock = new zmq.Subscriber
 
 		sock.connect(this.subhost)
-		sock.subscribe()
+		sock.subscribe(uid)
 		console.log("Subscriber connected")
 
 		while (ishas) {
 			const [topic, msg] = await sock.receive()
-			handleResult(topic.toString())
+			ishas = handleResult(topic.toString())
 		}
 		sock.unsubscribe();
 		console.log("Subscriber disconnected")
