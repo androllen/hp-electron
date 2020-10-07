@@ -1,5 +1,5 @@
 <template>
-  <div id="waf">
+  <div id="cdn">
     <div id="target">
       <el-row>
         <el-col id="input">
@@ -27,24 +27,26 @@
       </el-row>
     </div>
     <div id="content">
+      <p>扫描结果</p>
       <div>
-        <p>扫描结果</p>
-      </div>
-      <div>
-        <p>{{ m_result }}</p>
+        <el-table :data="m_tableData" style="width: 100%">
+          <el-table-column prop="ip" label="Url" width="300"></el-table-column>
+          <el-table-column prop="CNAME" label="Title"></el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
+// https://blog.csdn.net/qq_40282732/article/details/104343595
 import { GUID } from "../../utils";
 import ZmqJs from "../../service/zmq";
 
 var _data = {
-  m_target: "http://www.shufaai.com/",
+  m_target: "http://www.4dogs.cn",
   m_disable: false,
-  m_result: "",
+  m_tableData: [],
 };
 
 export default {
@@ -61,10 +63,14 @@ export default {
       this.m_disable = true;
       var task = {
         id: GUID(),
-        scriptid: "waf_check",
-        parameters: { url: this.m_target },
+        scriptid: "poc_framework",
+        parameters: {
+          keyword: this.m_target,
+          pocname: "urlspider",
+          engine: "baidu",
+        },
       };
-      this.m_result = "";
+      this.m_tableData = [];
       console.log(task);
       ZmqJs.HandleSend(task, (topic) => {
         try {
@@ -76,7 +82,7 @@ export default {
             console.log("this ia public data");
             var obj = JSON.parse(json);
             console.log(obj);
-            this.m_result = obj.waf;
+            this.m_tableData.push(obj);
             this.m_disable = false;
           } else if (json == "end!!!") {
             console.log("end!!!");
@@ -92,13 +98,16 @@ export default {
     },
     onStop() {
       this.m_disable = false;
+      //   var zmqjs = new ZmqJs();
+      //   var add = zmqjs.Add();
+      //   add.then((val) => (this.m_target = val));
     },
   },
 };
 </script>
 
 <style scoped>
-#waf {
+#cdn {
   height: 100%;
   width: auto;
   background: white;
@@ -117,10 +126,8 @@ export default {
   width: 10%;
 }
 #content {
-  padding: 0px 10px 10px;
-  float: left;
+  margin: 00px 10px 10px;
 }
-
 p {
   float: left;
 }
