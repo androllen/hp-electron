@@ -100,7 +100,7 @@ export default {
 .targe_div {
   width: auto;
   height: calc(80% - 37px);
-  background: blanchedalmond;
+  background: white;
 }
 
 .console_div {

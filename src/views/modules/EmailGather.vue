@@ -1,30 +1,21 @@
 <template>
-  <div id="email">
+  <div>
     <div id="target">
-      <el-row>
-        <el-col id="input">
-          <div>
-            <el-input
-              ref="inputName"
-              v-model="m_target"
-              :disabled="m_disable"
-              placeholder="请输入内容"
-            ></el-input>
-          </div>
-        </el-col>
-        <el-col id="rightbtn">
-          <div>
-            <el-button type="primary" :disabled="m_disable" @click="onStart"
-              >开始</el-button
-            >
-          </div>
-        </el-col>
-        <el-col id="rightbtn">
-          <div>
-            <el-button @click="onStop">停止</el-button>
-          </div>
-        </el-col>
-      </el-row>
+      <div id="_t_input">
+        <el-input
+          ref="inputName"
+          v-model="m_target"
+          :disabled="m_disable"
+          placeholder="请输入内容"
+        >
+        </el-input>
+      </div>
+      <div id="_t_input_btn">
+        <el-button type="primary" :disabled="m_disable" @click="onStart">
+          开始
+        </el-button>
+        <el-button @click="onStop">停止</el-button>
+      </div>
     </div>
     <div id="content">
       <p>扫描结果</p>
@@ -33,7 +24,8 @@
           <el-table-column
             prop="value"
             label="邮箱"
-            width="180"
+            min-width="300"
+            header-align="center"
           ></el-table-column>
         </el-table>
       </div>
@@ -88,7 +80,7 @@ export default {
             console.log("this ia public data");
             var obj = JSON.parse(json);
             console.log(obj.result);
-            
+
             obj.result.forEach((element) => {
               var _email = new Email(element);
               console.log(_email);
@@ -116,37 +108,27 @@ export default {
 </script>
 
 <style scoped>
-#email {
-  height: 100%;
-  width: 100%;
-  background: white;
-  border: solid 2px green;
-}
-
 #target {
   background-color: #f7f7f7;
+  height: 40px;
+  padding: 10px;
 }
 
-#input {
+#_t_input {
   width: 80%;
+  float: left;
 }
 
-#rightbtn {
-  width: 10%;
+#_t_input_btn {
+  left: 80%;
+  display: inline;
 }
+
 #content {
   padding: 0px 10px 10px;
-  float: left;
 }
 
 p {
   float: left;
-}
-
-.el-row {
-  padding: 15px 10px;
-}
-.el-col {
-  border-radius: 4px;
 }
 </style>

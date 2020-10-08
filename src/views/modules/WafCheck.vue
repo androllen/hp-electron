@@ -1,30 +1,20 @@
 <template>
-  <div id="waf">
+  <div>
     <div id="target">
-      <el-row>
-        <el-col id="input">
-          <div>
-            <el-input
-              ref="inputName"
-              v-model="m_target"
-              :disabled="m_disable"
-              placeholder="请输入内容"
-            ></el-input>
-          </div>
-        </el-col>
-        <el-col id="rightbtn">
-          <div>
-            <el-button type="primary" :disabled="m_disable" @click="onStart"
-              >开始</el-button
-            >
-          </div>
-        </el-col>
-        <el-col id="rightbtn">
-          <div>
-            <el-button @click="onStop">停止</el-button>
-          </div>
-        </el-col>
-      </el-row>
+      <div id="_t_input">
+        <el-input
+          ref="inputName"
+          v-model="m_target"
+          :disabled="m_disable"
+          placeholder="请输入内容">
+		</el-input>
+      </div>
+      <div id="_t_input_btn">
+        <el-button type="primary" :disabled="m_disable" @click="onStart">
+			开始
+		</el-button>
+        <el-button @click="onStop">停止</el-button>
+      </div>
     </div>
     <div id="content">
       <div>
@@ -98,24 +88,22 @@ export default {
 </script>
 
 <style scoped>
-#waf {
-  height: 100%;
-  width: auto;
-  background: white;
-  border: solid 2px green;
-}
-
 #target {
   background-color: #f7f7f7;
+  height: 40px;
+  padding: 10px;
 }
 
-#input {
+#_t_input {
   width: 80%;
+  float: left;
 }
 
-#rightbtn {
-  width: 10%;
+#_t_input_btn {
+  left: 80%;
+  display: inline;
 }
+
 #content {
   padding: 0px 10px 10px;
   float: left;
