@@ -34,10 +34,9 @@
 </template>
 
 <script type="text/javascript">
-// https://blog.csdn.net/qq_40282732/article/details/104343595
 import { GUID } from "../../utils";
 import ZmqJs from "../../service/zmq";
-import { Email } from "../../model";
+import { ModelEmail } from "../../model";
 
 var _data = {
   m_target: "nagapt.com",
@@ -63,13 +62,6 @@ export default {
         parameters: { keyword: this.m_target },
       };
       this.m_tableData = [];
-      // this.m_table = ['=======', '-----------------'];
-      // console.log(task);
-      // this.m_table.forEach((element) => {
-      //   var _email = new Email(element);
-      //   console.log(_email);
-      //   this.m_tableData.push(_email);
-      // });
       ZmqJs.HandleSend(task, (topic) => {
         try {
           var index = topic.indexOf(",");
@@ -82,7 +74,7 @@ export default {
             console.log(obj.result);
 
             obj.result.forEach((element) => {
-              var _email = new Email(element);
+              var _email = new ModelEmail(element);
               console.log(_email);
               this.m_tableData.push(_email);
             });

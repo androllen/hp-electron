@@ -15,6 +15,7 @@
 		"axios": "^0.20.0",
 		"core-js": "^3.6.5",
 		"element-ui": "^2.13.2",
+		"sqlite3": "^5.0.0",
 		"vue": "^2.3.3",
 		"vue-router": "^2.5.3",
 		"zeromq": "^6.0.0-beta.6"
