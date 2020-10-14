@@ -24,7 +24,7 @@
 
 <script type="text/javascript">
 import { ModelMd5 } from '../../model';
-import { GetMd516 } from '../../db/md5';
+import { GetMd516, GetMd532 } from '../../db/md5';
 
 var _data = {
   m_target: 'ac59075b964b0715',
@@ -44,21 +44,27 @@ export default {
   methods: {
     onStart() {
       this.m_disable = true;
-
-      //   if (m_target.length == 16) {
-      // 	  GetMd5_16(m_target,dataDeal);
-      //   } else {
-      // 	  GetMd5_32(m_target,dataDeal);
-      //   }
+      if (this.m_target.length == 16) {
+        GetMd516(this.m_target, (obj) => {
+          for (var i = 0; i < obj.length; ++i) {
+            var _email = new ModelMd5(obj[i].md5_32, obj[i].md5_16, obj[i].sn);
+            console.log(_email);
+            this.m_tableData.push(_email);
+          }
+        });
+      } else {
+        GetMd532(this.m_target, (obj) => {
+          for (var i = 0; i < obj.length; ++i) {
+            var _email = new ModelMd5(obj[i].md5_32, obj[i].md5_16, obj[i].sn);
+            console.log(_email);
+            this.m_tableData.push(_email);
+          }
+        });
+      }
     },
     onStop() {
       this.m_disable = false;
     },
-    // dataDeal(objects) {
-    //   for (var i = 0; i < objects.length; ++i) {
-    //     console.log(objects[i]);
-    //   }
-    // },
   },
 };
 </script>
