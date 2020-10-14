@@ -50,7 +50,7 @@ function createWindow() {
 	win.on('closed', () => {
 		win = null
 	})
-	createMenu()
+	// createMenu()
 }
 
 // 设置菜单栏

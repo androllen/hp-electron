@@ -14,5 +14,6 @@ export default () => [
 	{ path: '/tool_url', component: importPage("UrlGather") },
 	{ path: '/tool_md5', component: importPage("Md5Query") },
 	{ path: '/tool_pwd', component: importPage("PwdGenerator") },
+	{ path: '/tool_decrypt', component: importPage("Decrypt") },
 
 ]

@@ -30,6 +30,7 @@
           <el-menu-item index="/tool_url">URL 收集</el-menu-item>
           <el-menu-item index="/tool_md5">MD5 查询</el-menu-item>
           <el-menu-item index="/tool_pwd">密码生成器</el-menu-item>
+          <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-col>
