@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div id="content">
+    <div id="content" v-show="Seen">
       <p>用户名：</p>
       <p>{{ Username }}</p>
       <p>密码：</p>
@@ -19,12 +19,12 @@
       <div>
         <el-input class="cmd" v-model="cmdinput" placeholder="请输入命令"></el-input>
         <div>
-          <el-button type="primary">执行</el-button>
-          <el-button>取消</el-button>
+          <el-button type="primary" @click="onAttack">执行</el-button>
+          <el-button @click="onStop">取消</el-button>
         </div>
       </div>
 
-      <div class="result">
+      <div class="result" v-show="Seen">
         <el-row>
           <el-col :span="12"
             ><div>
@@ -53,6 +53,9 @@
 </template>
 
 <script>
+import { GUID } from '../../utils';
+import ZmqJs from '../../service/zmq';
+
 var _data = {
   m_target: '',
   m_disable: false,
@@ -62,7 +65,31 @@ var _data = {
   ResponseResult: '',
   RequestResult: '',
   cmdinput: '',
+  Seen: false,
 };
+var version = '';
+
+var _versionModels = [
+  {
+    Number: 'low',
+    Poc: 'jenkins_Password_blasting',
+  },
+  {
+    Number: 'high',
+    Poc: 'jenkins_High_Version_Password_blasting',
+  },
+];
+
+var _pocModels = [
+  {
+    Number: 'low',
+    Poc: 'jenkins_Low_Version_Weak_Pass_Excute_Cmd',
+  },
+  {
+    Number: 'high',
+    Poc: 'jenkins_High_Version_Weak_Pass_Excute_Cmd',
+  },
+];
 
 export default {
   data() {
@@ -71,6 +98,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.m_target = this.$route.query.targe;
+      this.version = this.$route.query.version;
     });
   },
   beforeCreate() {},
@@ -78,8 +106,111 @@ export default {
     onGo() {
       this.$router.go(-1);
     },
-    onStart() {},
-    onStop() {},
+    onStart() {
+      this.m_disable = true;
+      let list = [];
+
+      for (const key in _versionModels) {
+        if (_versionModels.hasOwnProperty(key)) {
+          const element = _versionModels[key];
+          if (element['Number'] === this.version.toLowerCase()) {
+            list.push(element['Poc']);
+          }
+        }
+      }
+
+      var task = {
+        id: GUID(),
+        scriptid: 'poc_framework',
+        parameters: {
+          url: this.m_target,
+          pocname: list,
+        },
+      };
+      console.log(task);
+
+      ZmqJs.HandleSend(task, (topic) => {
+        try {
+          var index = topic.indexOf(',');
+          var id = topic.substring(0, index - 1).trim();
+          var json = topic.substring(index + 1).trim();
+
+          if (json.startsWith('{') && json.endsWith('}')) {
+            console.log('this ia public data');
+            var obj = JSON.parse(json);
+            console.log(obj);
+            this.Username = obj.username;
+            this.Passwd = obj.password;
+            this.Seen = obj.success;
+            this.m_disable = false;
+          } else if (json == 'end!!!') {
+            console.log('end!!!');
+          } else if (json.StartsWith('error_')) {
+            console.log('error_');
+          }
+        } catch (e) {
+          console.log('error..' + e);
+        } finally {
+          this.m_disable = false;
+        }
+      });
+    },
+    onAttack() {
+      this.m_disable = true;
+      let list = [];
+
+      for (const key in _pocModels) {
+        if (_pocModels.hasOwnProperty(key)) {
+          const element = _pocModels[key];
+          if (element['Number'] === this.version.toLowerCase()) {
+            list.push(element['Poc']);
+          }
+        }
+      }
+
+      var task = {
+        id: GUID(),
+        scriptid: 'poc_framework',
+        parameters: {
+          url: this.m_target,
+          pocname: list,
+          cmd: this.cmdinput,
+          username: this.Username,
+          password: this.Passwd,
+        },
+      };
+      console.log(task);
+
+      ZmqJs.HandleSend(task, (topic) => {
+        try {
+          var index = topic.indexOf(',');
+          var id = topic.substring(0, index - 1).trim();
+          var json = topic.substring(index + 1).trim();
+
+          if (json.startsWith('{') && json.endsWith('}')) {
+            console.log('this ia public data');
+            var obj = JSON.parse(json);
+            console.log(obj);
+
+            this.RequestResult = obj.request.join('\r\n');
+            this.ResponseResult = obj.response.join('\r\n');
+
+            this.m_disable = false;
+          } else if (json == 'end!!!') {
+            console.log('end!!!');
+          } else if (json.StartsWith('error_')) {
+            console.log('error_');
+          }
+        } catch (e) {
+          console.log('error..' + e);
+        } finally {
+          this.m_disable = false;
+        }
+      });
+    },
+    onStop() {
+      this.m_disable = false;
+    },
   },
 };
 </script>
@@ -129,6 +260,6 @@ p {
 
 .cmd {
   float: left;
-  width: 50%;
+  width: 30%;
 }
 </style>

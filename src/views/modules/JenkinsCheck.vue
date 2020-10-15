@@ -18,7 +18,7 @@
           <el-table-column prop="Success" label="是否存在漏洞"></el-table-column>
           <el-table-column label="操作" width="100">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">利用</el-button>
+              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" v-show="Seen">利用</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -28,9 +28,14 @@
 </template>
 
 <script>
+import { GUID } from '../../utils';
+import ZmqJs from '../../service/zmq';
+
 var _data = {
   m_target: 'http://192.168.0.109:8010',
   m_disable: false,
+  Seen: false,
+  PocVersion: '',
   tableData: [
     {
       PocName: 'jenkins_version_check',
@@ -40,6 +45,15 @@ var _data = {
   ],
 };
 
+var jenkinsitem = [
+  {
+    PocName: 'jenkins_version_check',
+    PocVersion: '',
+    Success: '',
+    Index: 0,
+  },
+];
+
 export default {
   data() {
     return _data;
@@ -47,11 +61,57 @@ export default {
   methods: {
     handleEdit(index, row) {
       console.log(index, row);
-      this.$router.push({ path: '/exp_jenkins_shell', query: { targe: this.m_target } });
+      this.$router.push({ path: '/exp_jenkins_shell', query: { targe: this.m_target, version: this.PocVersion } });
       console.log(this.m_target);
     },
     onStart() {
       this.m_disable = true;
+      var task = {
+        id: GUID(),
+        scriptid: 'poc_framework',
+        parameters: {
+          url: this.m_target,
+          pocname: 'jenkins_version_check',
+        },
+      };
+      console.log(task);
+
+      ZmqJs.HandleSend(task, (topic) => {
+        try {
+          var index = topic.indexOf(',');
+          var id = topic.substring(0, index - 1).trim();
+          var json = topic.substring(index + 1).trim();
+
+          if (json.startsWith('{') && json.endsWith('}')) {
+            console.log('this ia public data');
+            var obj = JSON.parse(json);
+            console.log(obj);
+
+            jenkinsitem.forEach((element) => {
+              if (element['PocName'] === obj.pocname) {
+                let index = element['Index'];
+                element['PocVersion'] = this.PocVersion = obj.version.toString();
+                console.log(element['PocVersion'] + '====');
+                console.log(this.PocVersion + '====');
+
+                this.tableData[index].PocVersion = obj.version.toString();
+                this.tableData[index].Success = obj.success.toString();
+                this.Seen = true;
+              }
+            });
+
+            this.m_disable = false;
+          } else if (json == 'end!!!') {
+            console.log('end!!!');
+          } else if (json.StartsWith('error_')) {
+            console.log('error_');
+          }
+        } catch (e) {
+          console.log('error..' + e);
+        } finally {
+          this.m_disable = false;
+        }
+      });
     },
     onStop() {
       this.m_disable = false;
