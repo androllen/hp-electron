@@ -7,7 +7,4 @@
 [2020-10-14 18:44:33,152](DEBUG)TX: {'id': '44b4f2df-7255-408e-ff5b-b58e16da9e79', 'scriptid': 'aux_tool', 'parameters': {'pocname': 'encrypt', 'method': 'fence', 'action': 'encipher', 'input': 'happy', 'key': '555', 'mark': '', 'case': 'upper'}}
 [2020-10-14 18:44:38,575](DEBUG)TX: {'id': '385bd1fe-59cd-3e64-a08c-1f8f4851227c', 'scriptid': 'aux_tool', 'parameters': {'pocname': 'encrypt', 'method': 'caesar', 'action': 'encipher', 'input': 'happy', 'key': '666', 'mark': '', 'case': 'upper'}}
 [2020-10-14 18:44:54,177](DEBUG)TX: {'id': 'f5708054-9f74-a3fa-cf86-f95e0974946c', 'scriptid': 'aux_tool', 'parameters': {'pocname': 'makepwd', 'fullnameList': 'si wei chuang,zhi ad', 'nicknameList': '4dogs', 'dateList': '20091010', 'phoneList': '15212366598', 'oldpasswdList': '8898', 'keynumbersList': '8080', 'keywordsList': 'world', 'lovernameList': 'alita', 'organizationList': 'happy', 'qq': '123', 'weakpasswd': '0', 'output': 'D:\\Desktop\\test.txt'}}
-[2020-10-14 18:45:07,606](DEBUG)TX: {'id': 'c68d970e-307c-c4e2-5f83-db9396c4ce1c', 'scriptid': 'poc_framework', 'parameters': {'keyword': 'http://www.4dogs.cn', 'pocname': 'urlspider', 'engine': 'baidu'}}
-[2020-10-14 18:45:07,798](ERROR)TX: No module named 'msgpack'
-[2020-10-14 18:47:51,688](DEBUG)TX: {'id': 'faab7636-32a3-2c72-50a5-ed15a97440fb', 'scriptid': 'poc_framework', 'parameters': {'keyword': '4dogs', 'pocname': 'urlspider', 'engine': 'baidu'}}
-[2020-10-14 18:47:51,693](ERROR)TX: No module named 'msgpack'
+[2020-10-15 15:41:06,862](DEBUG)TX: {'id': '01a28e1c-f8f8-7430-5b62-12c0727441be', 'scriptid': 'aux_tool', 'parameters': {'keyword': '4dogs', 'pocname': 'urlspider', 'engine': 'baidu', 'flag': 10}}

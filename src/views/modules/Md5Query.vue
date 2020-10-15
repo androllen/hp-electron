@@ -61,6 +61,7 @@ export default {
           }
         });
       }
+      this.m_disable = false;
     },
     onStop() {
       this.m_disable = false;

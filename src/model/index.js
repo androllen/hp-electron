@@ -12,3 +12,10 @@ export class ModelMd5 {
 		this.SN = SN;
 	}
 }
+
+export class ModelUrl {
+	constructor(url, title) {
+		this.Url = url;
+		this.Title = title;
+	}
+}

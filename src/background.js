@@ -27,7 +27,8 @@ function createWindow() {
 			// See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
 			nodeIntegration: true,
 			webSecurity: false,
-			allowRunningInsecureContent: true
+			allowRunningInsecureContent: true,
+			enableRemoteModule: true
 		},
 		// 固定宽高
 		resizable: true,

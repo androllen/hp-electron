@@ -1,14 +1,6 @@
-let zmq = undefined
-try {
-  zmq = require('zeromq')
-} catch (error) {
-  zmq = window.require('zeromq')
-}
-
+let zmq = require('zeromq')
 const _reqhost = "tcp://127.0.0.1:5555";
 const _subhost = "tcp://127.0.0.1:50505";
-let ishas = true;
-
 
 class ZmqJs {
   constructor() {
@@ -36,8 +28,7 @@ class ZmqJs {
       while (true) {
         const [topic, msg] = await sub_sock.receive()
         // 回调函数
-        handleResult(topic.toString())
-        console.log("topic" + topic.toString())
+				handleResult(topic.toString())
       }
       // sub_sock.unsubscribe();
       // sub_sock.close();
