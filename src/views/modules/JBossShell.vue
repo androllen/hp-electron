@@ -47,14 +47,17 @@
 </template>
 
 <script>
+import { GUID } from '../../utils';
+import ZmqJs from '../../service/zmq';
+
 var _data = {
   m_target: '',
   m_disable: false,
   Success: '',
   Username: '',
   Passwd: '',
-  ResponseResult:'',
-  RequestResult:''
+  ResponseResult: '',
+  RequestResult: '',
 };
 
 export default {
@@ -71,8 +74,50 @@ export default {
     onGo() {
       this.$router.go(-1);
     },
-    onStart() {},
-    onStop() {},
+    onStart() {
+      this.m_disable = true;
+      var task = {
+        id: GUID(),
+        scriptid: 'poc_framework',
+        parameters: {
+          url: this.m_target,
+          pocname: 'jboss_adminconsole_brute',
+        },
+      };
+      console.log(task);
+
+      ZmqJs.HandleSend(task, (topic) => {
+        try {
+          var index = topic.indexOf(',');
+          var id = topic.substring(0, index - 1).trim();
+          var json = topic.substring(index + 1).trim();
+
+          if (json.startsWith('{') && json.endsWith('}')) {
+            console.log('this ia public data');
+            var obj = JSON.parse(json);
+            console.log(obj);
+			this.Passwd = obj.passwd
+			this.Username = obj.username
+			this.RequestResult = obj.request[0]
+			this.ResponseResult = obj.response[0]
+			this.Success = obj.success.toString()
+
+            this.m_disable = false;
+          } else if (json == 'end!!!') {
+            console.log('end!!!');
+          } else if (json.StartsWith('error_')) {
+            console.log('error_');
+          }
+        } catch (e) {
+          console.log('error..');
+        } finally {
+          this.m_disable = false;
+        }
+      });
+    },
+    onStop() {
+      this.m_disable = false;
+    },
   },
 };
 </script>

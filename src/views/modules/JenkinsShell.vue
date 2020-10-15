@@ -129,5 +129,6 @@ p {
 
 .cmd {
   float: left;
+  width: 50%;
 }
 </style>

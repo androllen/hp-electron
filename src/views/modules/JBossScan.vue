@@ -18,7 +18,7 @@
           <el-table-column prop="Success" label="是否存在漏洞"></el-table-column>
           <el-table-column label="操作" width="100">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">利用</el-button>
+              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" v-show="Seen">利用</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -28,9 +28,13 @@
 </template>
 
 <script>
+import { GUID } from '../../utils';
+import ZmqJs from '../../service/zmq';
+
 var _data = {
-  m_target: 'http://www.4dogs.cn',
+  m_target: 'http://192.168.0.109:8280',
   m_disable: false,
+  Seen: false,
   tableData: [
     {
       PocName: 'CVE-2017-12149',
@@ -39,6 +43,15 @@ var _data = {
     },
   ],
 };
+
+let jbossitem = [
+  {
+    PocName: 'Jboss_AdminConsole_infoleak',
+    PocVersion: '全版本',
+    Success: '',
+    Index: 0,
+  },
+];
 
 export default {
   data() {
@@ -52,6 +65,48 @@ export default {
     },
     onStart() {
       this.m_disable = true;
+      var task = {
+        id: GUID(),
+        scriptid: 'poc_framework',
+        parameters: {
+          url: this.m_target,
+          pocname: 'Jboss_AdminConsole_infoleak',
+        },
+      };
+      console.log(task);
+
+      ZmqJs.HandleSend(task, (topic) => {
+        try {
+          var index = topic.indexOf(',');
+          var id = topic.substring(0, index - 1).trim();
+          var json = topic.substring(index + 1).trim();
+
+          if (json.startsWith('{') && json.endsWith('}')) {
+            console.log('this ia public data');
+            var obj = JSON.parse(json);
+            console.log(obj);
+
+            jbossitem.forEach((element) => {
+              if (element['PocName'] === obj.pocname) {
+                let index = element['Index'];
+                this.tableData[index].PocVersion = element['PocVersion'];
+                this.tableData[index].Success = obj.success.toString();
+                this.Seen = true;
+              }
+            });
+
+            this.m_disable = false;
+          } else if (json == 'end!!!') {
+            console.log('end!!!');
+          } else if (json.StartsWith('error_')) {
+            console.log('error_');
+          }
+        } catch (e) {
+          console.log('error..');
+        } finally {
+          this.m_disable = false;
+        }
+      });
     },
     onStop() {
       this.m_disable = false;

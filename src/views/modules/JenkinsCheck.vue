@@ -29,7 +29,7 @@
 
 <script>
 var _data = {
-  m_target: 'http://www.4dogs.cn',
+  m_target: 'http://192.168.0.109:8010',
   m_disable: false,
   tableData: [
     {
