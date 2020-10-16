@@ -2,7 +2,7 @@
   <div id="ele_div">
     <el-row class="tac">
       <el-col :span="24">
-        <el-menu router default-active="/info_cdn" class="el-menu-vertical" @open="handleOpen" @select="handleSelect">
+        <el-menu router :default-active="$route.path" class="el-menu-vertical" @open="handleOpen" @select="handleSelect">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -20,7 +20,7 @@
               <span>专用漏洞</span>
             </template>
             <el-menu-item index="/exp_jboss_scan">JBoss 检测</el-menu-item>
-            <el-menu-item index="/exp_jenkins_check">网站后台爆破</el-menu-item>
+            <el-menu-item index="/exp_jenkins_check">Jenkins 爆破</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
@@ -39,16 +39,44 @@
 </template>
 
 <script>
+import Bus from '../router/bus'
+
+
 export default {
   methods: {
     // https://www.jianshu.com/p/ecbbd6810f7f
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      console.log(key, keyPath + '*');
     },
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      console.log(key, keyPath + '-');
     },
   },
+  mounted() {
+    var self = this;
+    Bus.$on('activeIndex', function (defaultActive) {
+	  self.defaultActive = defaultActive;
+	  console.log(defaultActive);
+    });
+  },
+  //   data() {
+  //     return {
+  //       activeIndex: '/info_cdn',
+  //     };
+  //   },
+  //   watch: {
+  //     $route(to, from) {
+  //       console.log(`前往路由：${to.path}`);
+  //       let pathName = this.$route.name;
+  //       if (pathName === 'CdnDetect') {
+  //         console.log('CdnDetect===');
+  //         this.activeIndex = '/info_cdn';
+  //       } else if (pathName === 'WafCheck') {
+  //         console.log('WafCheck===');
+  //         this.activeIndex = '/info_waf';
+  //       }
+  //     },
+  //   },
 };
 </script>
 

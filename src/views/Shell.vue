@@ -62,7 +62,6 @@ export default {
   width: 250px;
   height: 100%;
   position: absolute;
-  background: green;
   left: 0px;
   top: 0px;
 }
@@ -70,13 +69,12 @@ export default {
 .search_div {
   width: auto;
   height: 50px;
-  background: red;
 }
 
 .menu_div {
   width: auto;
   height: 350px;
-  background: yellow;
+  margin-top: -9px;
 }
 
 .content_div {
@@ -85,9 +83,6 @@ export default {
   top: 0px;
   width: calc(100% - 250px);
   height: 100%;
-  border: 1px solid #f00;
-  border-radius: 6px;
-  background: gray;
   position: absolute;
 }
 
