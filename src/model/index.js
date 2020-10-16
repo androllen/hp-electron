@@ -19,3 +19,24 @@ export class ModelUrl {
 		this.Title = title;
 	}
 }
+
+export class ModeMX {
+	constructor(mx, ip) {
+		this.mxr = mx;
+		this.ip = ip;
+	}
+}
+
+export class ModeNs {
+	constructor(ns, ip) {
+		this.nsr = ns;
+		this.ip = ip;
+	}
+}
+
+export class ModeSubDomain {
+	constructor(url, ip) {
+		this.url = url;
+		this.ip = ip;
+	}
+}

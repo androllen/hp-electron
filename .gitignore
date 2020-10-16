@@ -27,3 +27,4 @@ pnpm-debug.log*
 /src/assets/md5.db
 /public/md5.db
 /public/sql.db
+/.vscode/settings.json
