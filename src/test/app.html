@@ -1,85 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- import CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<style>
+		section {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
+		}
+
+		#sample {
+			background-color: #800080;
+			text-align: center;
+		}
+
+		#itemlist {
+			display: flex;
+			flex-flow: row wrap;
+			flex-direction: row;
+			column-gap: 10px;
+			row-gap: 10px;
+		}
+
+		#item {
+			background-color: turquoise;
+			padding: 0 10px 10px 10px;
+			/* 强制设置最小宽度 */
+			flex: 200px;
+			/* flex-basis: 200px; */
+		}
+
+		p {
+			color: white;
+			font-size: x-large;
+		}
+
+	</style>
 </head>
 
 <body>
 
-  <div class="app">
-
-    <div class="nav_div">
-      <img alt="Vue logo" src="../assets/logo.png">
-      <div class="div1"></div>
-      <div class="div2"></div>
-    </div>
-
-    <div class="content_div">
-      <div class="targe_div">
-
-
-      </div>
-      <div class="console_div">
-
-      </div>
-    </div>
-  </div>
+	<section id="app">
+		<div id="sample">
+			<p>Sample flexbox example</p>
+		</div>
+		<div id="itemlist">
+			<div id="item">
+				<div>
+					<p>First article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>Second article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>Third article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>First article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>Second article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>Third article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>First article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>Second article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+			<div id="item">
+				<div>
+					<p>Third article</p>
+					<article>
+						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+						layout
+						with
+						equal-sized columns, and the columns are all the same height. This is because the default values given to
+						flex
+						items
+						(the children of the flex container) are set up to solve common problems such as this.
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 
-<style>
-  .targe_div {
-    width: auto;
-    height: 80%;
-    background: blanchedalmond;
-  }
 
-  .console_div {
-    width: auto;
-    height: 20%;
-    background: aquamarine;
-  }
 
-  .app {
-    min-width: 1100px;
-    min-height: 700px;
-  }
-
-  .nav_div {
-    float: left;
-    width: 250px;
-    height: 100%;
-    position: absolute;
-    background: green;
-    left: 0px;
-    top: 0px;
-  }
-
-  .div1 {
-    width: auto;
-    height: 50px;
-    background: red;
-  }
-
-  .div2 {
-    width: auto;
-    height: 350px;
-    background: yellow;
-  }
-
-  .content_div {
-    float: left;
-    left: 250px;
-    top: 0px;
-    width: calc(100% - 250px);
-    height: 100%;
-    border: 2px solid #F00;
-    border-radius: 6px;
-    background: gray;
-    position: absolute;
-  }
-</style>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+	new Vue({
+		el: '#app',
+	})
+</script>
 
 </html>
