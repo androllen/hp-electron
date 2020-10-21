@@ -1,183 +1,91 @@
 <!DOCTYPE html>
 <html>
+<!-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex -->
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<!-- import CSS -->
+	<!-- import CSS  -->
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<style>
-		section {
+		.flex-container {
+			background-color: #F4F7F8;
+			resize: horizontal;
+			overflow: hidden;
 			display: flex;
-			flex-direction: column;
-			row-gap: 10px;
+			margin: 1em;
 		}
 
-		#sample {
-			background-color: #800080;
-			text-align: center;
+		.auto {
+			flex: auto;
 		}
 
-		#itemlist {
-			display: flex;
-			flex-flow: row wrap;
-			flex-direction: row;
-			column-gap: 10px;
-			row-gap: 10px;
-		}
-
-		#item {
-			background-color: turquoise;
-			padding: 0 10px 10px 10px;
-			/* 强制设置最小宽度 */
-			flex: 200px;
-			/* flex-basis: 200px; */
-		}
-
-		p {
+		.item {
+			margin: 1em;
+			padding: 0.5em;
+			width: 110px;
+			min-width: 0;
+			background-color: #1B5385;
 			color: white;
-			font-size: x-large;
+			font-family: monospace;
+			font-size: 13px;
 		}
 
+		.initial {
+			flex: initial;
+		}
+
+		.none {
+			flex: none;
+		}
+
+		.four {
+			flex: 4;
+		}
+
+		.two {
+			flex: 2;
+		}
+
+		.one {
+			flex: 1;
+		}
 	</style>
 </head>
 
 <body>
 
-	<section id="app">
-		<div id="sample">
-			<p>Sample flexbox example</p>
-		</div>
-		<div id="itemlist">
-			<div id="item">
-				<div>
-					<p>First article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>Second article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>Third article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>First article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>Second article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>Third article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>First article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>Second article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-			<div id="item">
-				<div>
-					<p>Third article</p>
-					<article>
-						So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-						layout
-						with
-						equal-sized columns, and the columns are all the same height. This is because the default values given to
-						flex
-						items
-						(the children of the flex container) are set up to solve common problems such as this.
-					</article>
-				</div>
-			</div>
-		</div>
-	</section>
+	<div class="flex-container">
+		<div class="item auto">auto</div>
+		<div class="item auto">auto</div>
+		<div class="item auto">auto</div>
+	</div>
+
+	<div class="flex-container">
+		<div class="item auto">auto</div>
+		<div class="item initial">initial</div>
+		<div class="item initial">initial</div>
+	</div>
+
+	<div class="flex-container">
+		<div class="item auto">auto</div>
+		<div class="item auto">auto</div>
+		<div class="item none">none</div>
+	</div>
+
+	<div class="flex-container">
+		<div class="item initial">initial</div>
+		<div class="item none">none</div>
+		<div class="item none">none</div>
+	</div>
+
+	<div class="flex-container">
+		<div class="item four">4</div>
+		<div class="item two">2</div>
+		<div class="item one">1</div>
+	</div>
+
 </body>
 
 
