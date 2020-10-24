@@ -28,7 +28,7 @@ class ZmqJs {
       while (true) {
         const [topic, msg] = await sub_sock.receive()
         // 回调函数
-				handleResult(topic.toString())
+        handleResult(topic.toString())
       }
       // sub_sock.unsubscribe();
       // sub_sock.close();

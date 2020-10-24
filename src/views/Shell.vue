@@ -38,8 +38,8 @@ export default {
     BaseMenu,
     BaseHistory,
     BaseTarget,
-    BaseConsole,
-  },
+    BaseConsole
+  }
 };
 </script>
 
