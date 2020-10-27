@@ -30,10 +30,6 @@
           <el-menu-item index="/tool_md5">MD5 查询</el-menu-item>
           <el-menu-item index="/tool_pwd">密码生成器</el-menu-item>
           <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
-          <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
-          <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
-          <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
-          <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-col>
@@ -82,6 +78,7 @@ export default {
 .nui-scroll::-webkit-scrollbar {
   width: 9px;
   height: 3px;
+  display: none;
 }
 
 /*正常情况下滑块的样式*/
