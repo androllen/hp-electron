@@ -1,23 +1,24 @@
 <template>
-  <div id="app">
-    <div class="nav_div">
-      <img alt="Vue logo" src="../assets/logo.png" />
-      <div class="search_div">
+  <div class="el-box" id="shell">
+    <div class="el-nav" id="shell">
+      <div class="logo">
+        <img alt="Vue logo" src="../assets/logo.png" />
         <BaseSearch />
       </div>
-      <div class="menu_div">
+      <div class="views">
         <BaseMenu />
       </div>
+      <div class="setting"></div>
     </div>
 
-    <div class="content_div">
-      <div class="history_div">
+    <div class="el-content" id="shell">
+      <div class="title">
         <BaseHistory />
       </div>
-      <div class="targe_div">
+      <div class="views">
         <BaseTarget />
       </div>
-      <div class="console_div">
+      <div class="logger">
         <BaseConsole />
       </div>
     </div>
@@ -25,14 +26,30 @@
 </template>
 
 <script>
-import BaseSearch from "@/components/BaseSearch.vue";
-import BaseMenu from "@/components/BaseMenu.vue";
-import BaseHistory from "@/components/BaseHistory.vue";
-import BaseTarget from "@/components/BaseTarget.vue";
-import BaseConsole from "@/components/BaseConsole.vue";
+/*
+ DIV高度为浏览器窗口的高度
+ 通过深入Document内部对body进行检测，获取浏览器窗口高度
+*/
+function autodivheight() {
+  let winHeight = 0;
+  if (window.innerHeight) {
+    winHeight = window.innerHeight;
+  } else if (document.body && document.body.clientHeight) {
+    winHeight = document.body.clientHeight;
+  }
+  if (document.documentElement && document.documentElement.clientHeight) {
+    winHeight = document.documentElement.clientHeight;
+  }
+  document.getElementById('shell').style.height = winHeight + 'px';
+}
+import BaseSearch from '@/components/BaseSearch.vue';
+import BaseMenu from '@/components/BaseMenu.vue';
+import BaseHistory from '@/components/BaseHistory.vue';
+import BaseTarget from '@/components/BaseTarget.vue';
+import BaseConsole from '@/components/BaseConsole.vue';
 
 export default {
-  name: "Shell",
+  name: 'shell',
   components: {
     BaseSearch,
     BaseMenu,
@@ -40,69 +57,58 @@ export default {
     BaseTarget,
     BaseConsole,
   },
+  mounted() {
+    window.onload = () => {
+      autodivheight();
+    };
+    window.onresize = () => {
+      autodivheight();
+    };
+  },
 };
 </script>
 
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 0px;
-  margin-left: 0px;
-  min-width: 1100px;
-  min-height: 700px;
+.el-box {
+  overflow: hidden;
+  display: flex;
 }
 
-.nav_div {
-  float: left;
+.el-nav {
+  display: flex;
+  flex-direction: column;
   width: 250px;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  top: 0px;
 }
 
-.search_div {
-  width: auto;
-  height: 50px;
+.el-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
 }
 
-.menu_div {
-  width: auto;
-  height: 350px;
-  margin-top: -9px;
-}
-
-.content_div {
-  float: left;
-  left: 250px;
-  top: 0px;
-  width: calc(100% - 250px);
-  height: 100%;
-  position: absolute;
-}
-
-.history_div {
-  width: auto;
+.title {
+  background-color: #333;
   height: 37px;
-  background: white;
+}
+.logger {
+  background-color: #333;
+  height: 90px;
 }
 
-.targe_div {
-  width: auto;
-  height: calc(80% - 37px);
-  background: white;
+.views {
+  background-color: transparent;
+  overflow: hidden;
+  height: 100%;
 }
 
-.console_div {
-  height: 20%;
-  background: aquamarine;
-  position: relative;
-  margin-top: 2px;
-  border: solid 1px red;
+.logo {
+  background: #1f3359;
+  height: auto;
+}
+.setting {
+  background-color: #8eb1e8;
+  height: 60px;
 }
 </style>
