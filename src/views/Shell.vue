@@ -5,7 +5,7 @@
         <img alt="Vue logo" src="../assets/logo.png" />
         <BaseSearch />
       </div>
-      <div class="views">
+      <div class="views" id="menu">
         <BaseMenu />
       </div>
       <div class="setting"></div>
@@ -41,6 +41,8 @@ function autodivheight() {
     winHeight = document.documentElement.clientHeight;
   }
   document.getElementById('shell').style.height = winHeight + 'px';
+  document.getElementById('menu').style.height = winHeight - 204  + 'px';
+
 }
 import BaseSearch from '@/components/BaseSearch.vue';
 import BaseMenu from '@/components/BaseMenu.vue';
@@ -108,7 +110,7 @@ export default {
   height: auto;
 }
 .setting {
-  background-color: #8eb1e8;
+  background-color: #1f3359;
   height: 60px;
 }
 </style>
