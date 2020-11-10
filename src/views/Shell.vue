@@ -28,7 +28,7 @@
 <script>
 /*
  DIV高度为浏览器窗口的高度
- 通过深入Document内部对body进行检测，获取浏览器窗口高度
+ 通过深入Document内部进行检测，获取浏览器窗口高度
 */
 function autodivheight() {
   let winHeight = 0;

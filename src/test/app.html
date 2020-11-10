@@ -3,335 +3,337 @@
 <!-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex -->
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<!-- import CSS  -->
-	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-	<style>
-		.flex-container {
-			background-color: #F4F7F8;
-			resize: both;
-			overflow: hidden;
-			display: flex;
-			margin: 1em;
-		}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- import CSS  -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+    .flex-container {
+      background-color: #F4F7F8;
+      resize: both;
+      overflow: hidden;
+      display: flex;
+      margin: 1em;
+    }
 
-		.auto {
-			flex: auto;
-		}
+    .auto {
+      flex: auto;
+    }
 
-		.item {
-			margin: 1em;
-			padding: 0.5em;
-			width: 110px;
-			min-width: 0;
-			background-color: #1B5385;
-			color: white;
-			font-family: monospace;
-			font-size: 13px;
-		}
+    .item {
+      margin: 1em;
+      padding: 0.5em;
+      width: 110px;
+      min-width: 0;
+      background-color: #1B5385;
+      color: white;
+      font-family: monospace;
+      font-size: 13px;
+    }
 
-		.initial {
-			flex: initial;
-		}
+    .initial {
+      flex: initial;
+    }
 
-		.none {
-			flex: none;
-		}
+    .none {
+      flex: none;
+    }
 
-		.four {
-			flex: 4;
-		}
+    .four {
+      flex: 4;
+    }
 
-		.two {
-			flex: 2;
-		}
+    .two {
+      flex: 2;
+    }
 
-		.one {
-			flex: 1;
-		}
+    .one {
+      flex: 1;
+    }
 
-		.el-flex-container {
-			resize: horizontal;
-			overflow: hidden;
-			margin: 1em;
-			background-color: #cbd0d1;
-			display: flex;
-			flex-direction: column;
-		}
-
-
-		.el-item {
-			margin: 1em;
-			min-width: 0;
-		}
-
-		.el-no-flex-container {
-			display: flex;
-		}
-
-		.nui-scroll {
-			border: 1px solid #000;
-			width: auto;
-			height: 600px;
-			overflow: auto;
-			max-height: 700px;
-
-		}
-
-		.nui-scroll::-webkit-scrollbar {
-			width: 9px;
-			height: 3px;
-		}
-
-		/*正常情况下滑块的样式*/
-		.nui-scroll::-webkit-scrollbar-thumb {
-			border-radius: 4px;
-			background: #8eb1e8;
-		}
-
-		/*正常时候的主干部分*/
-		.nui-scroll::-webkit-scrollbar-track {
-			background: transparent;
-			border-radius: 1px;
-
-		}
+    .el-flex-container {
+      resize: horizontal;
+      overflow: hidden;
+      margin: 1em;
+      background-color: #cbd0d1;
+      display: flex;
+      flex-direction: column;
+    }
 
 
-		section {
-			display: flex;
-			flex-direction: column;
-			row-gap: 10px;
-		}
+    .el-item {
+      margin: 1em;
+      min-width: 0;
+    }
 
-		#sample {
-			background-color: #800080;
-			text-align: center;
-		}
+    .el-no-flex-container {
+      display: flex;
+    }
 
-		#itemlist {
-			display: flex;
-			flex-flow: row wrap;
-			flex-direction: row;
-			column-gap: 10px;
-			row-gap: 10px;
-		}
+    .nui-scroll {
+      border: 1px solid #000;
+      width: auto;
+      height: 600px;
+      overflow: auto;
+      max-height: 700px;
 
-		#item {
-			background-color: turquoise;
-			padding: 0 10px 10px 10px;
-			/* 强制设置最小宽度 */
-			flex: 200px;
-			/* flex-basis: 200px; */
-		}
+    }
 
-		p {
-			color: white;
-			font-size: x-large;
-		}
-	</style>
+    .nui-scroll::-webkit-scrollbar {
+      width: 9px;
+      height: 3px;
+    }
+
+    /*正常情况下滑块的样式*/
+    .nui-scroll::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background: #8eb1e8;
+    }
+
+    /*正常时候的主干部分*/
+    .nui-scroll::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 1px;
+
+    }
+
+
+    section {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+    }
+
+    #sample {
+      background-color: #800080;
+      text-align: center;
+    }
+
+    #itemlist {
+      display: flex;
+      flex-flow: row wrap;
+      flex-direction: row;
+      column-gap: 10px;
+      row-gap: 10px;
+    }
+
+    #item {
+      background-color: turquoise;
+      padding: 0 10px 10px 10px;
+      /* 强制设置最小宽度 */
+      flex: 200px;
+      /* flex-basis: 200px; */
+    }
+
+    p {
+      color: white;
+      font-size: x-large;
+    }
+  </style>
 </head>
 
 <body>
-	<div id="app">
+  <div id="app">
 
-		<div class="flex-container">
-			<div class="item auto">auto</div>
-			<div class="item auto">auto</div>
-			<div class="item auto">auto</div>
-		</div>
+    <div class="flex-container">
+      <div class="item auto">auto</div>
+      <div class="item auto">auto</div>
+      <div class="item auto">auto</div>
+    </div>
 
-		<div class="flex-container">
-			<div class="item auto">auto</div>
-			<div class="item initial">initial</div>
-			<div class="item initial">initial</div>
-		</div>
+    <div class="flex-container">
+      <div class="item auto">auto</div>
+      <div class="item initial">initial</div>
+      <div class="item initial">initial</div>
+    </div>
 
-		<div class="flex-container">
-			<div class="item auto">auto</div>
-			<div class="item none">none</div>
-			<div class="item none">none</div>
-		</div>
+    <div class="flex-container">
+      <div class="item auto">auto</div>
+      <div class="item none">none</div>
+      <div class="item none">none</div>
+    </div>
 
-		<div class="el-flex-container">
-			<div class="flex-container">
-				<el-input class="el-item  auto" placeholder="请输入内容"></el-input>
-				<el-button class="el-item none">默认按钮</el-button>
-				<el-button class="el-item none">默认按钮</el-button>
-			</div>
-			<div class="el-no-flex-container">
-				<div class="item auto">auto</div>
-				<div class="item none">none</div>
-				<div class="item none">none</div>
-			</div>
+    <div class="el-flex-container">
+      <div class="flex-container">
+        <el-input class="el-item  auto" placeholder="请输入内容"></el-input>
+        <el-button class="el-item none">默认按钮</el-button>
+        <el-button class="el-item none">默认按钮</el-button>
+      </div>
+      <div class="el-no-flex-container">
+        <div class="item auto">auto</div>
+        <div class="item none">none</div>
+        <div class="item none">none</div>
+      </div>
 
-		</div>
+    </div>
 
-		<div class="flex-container">
-			<div class="item auto">auto</div>
-			<div class="item auto">auto</div>
-			<div class="item none">none</div>
-		</div>
+    <div class="flex-container">
+      <div class="item auto">auto</div>
+      <div class="item auto">auto</div>
+      <div class="item none">none</div>
+    </div>
 
-		<div class="flex-container">
-			<div class="item initial">initial</div>
-			<div class="item none">none</div>
-			<div class="item none">none</div>
-		</div>
+    <div class="flex-container">
+      <div class="item initial">initial</div>
+      <div class="item none">none</div>
+      <div class="item none">none</div>
+    </div>
 
 
-		<div class="flex-container nui-scroll">
-			<section id="app">
-				<div id="sample">
-					<p>Sample flexbox example</p>
-				</div>
-				<div id="itemlist">
-					<div id="item">
-						<div>
-							<p>First article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>Second article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>Third article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>First article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>Second article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>Third article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>First article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>Second article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-					<div id="item">
-						<div>
-							<p>Third article</p>
-							<article>
-								So, this single declaration gives us everything we need — incredible, right? We have our multiple column
-								layout
-								with
-								equal-sized columns, and the columns are all the same height. This is because the default values given
-								to
-								flex
-								items
-								(the children of the flex container) are set up to solve common problems such as this.
-							</article>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
+    <div class="flex-container nui-scroll">
+      <section id="app">
+        <div id="sample">
+          <p>Sample flexbox example</p>
+        </div>
+        <div id="itemlist">
+          <div id="item">
+            <div>
+              <p>First article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>Second article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>Third article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>First article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>Second article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>Third article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>First article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>Second article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+          <div id="item">
+            <div>
+              <p>Third article</p>
+              <article>
+                So, this single declaration gives us everything we need — incredible, right? We have our multiple column
+                layout
+                with
+                equal-sized columns, and the columns are all the same height. This is because the default values given
+                to
+                flex
+                items
+                (the children of the flex container) are set up to solve common problems such as this.
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
-		<div class="flex-container">
-			<div class="item four">4</div>
-			<div class="item two">2</div>
-			<div class="item one">1</div>
-		</div>
-	</div>
+    <div class="flex-container">
+      <div class="item four">4</div>
+      <div class="item two">2</div>
+      <div class="item one">1</div>
+    </div>
+    <button-counter></button-counter>
+    <blog-post v-for="post in posts" :id="post.id" :title="post.title"></blog-post>
+  </div>
 
 
 </body>
@@ -343,9 +345,33 @@
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-	})
+  Vue.component('button-counter', {
+    data() {
+      return {
+        count: 0
+      }
+    },
+    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+  })
+  Vue.component('blog-post', {
+    props: {
+      title: String,
+      id: Number
+    },
+    template: '<h3>{{ id }}.{{ title }}</h3>'
+  })
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        posts: [
+          { id: 1, title: 'with Vue' },
+          { id: 2, title: 'Blogging with Vue' },
+          { id: 3, title: 'Why Vue is so fun' }
+        ]
+      }
+    },
+  })
 </script>
 
 </html>
