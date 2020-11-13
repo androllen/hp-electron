@@ -22,6 +22,7 @@ export default {
       isLeft: true,
       isMore: false,
       isRight: true,
+      navlist:[],
       options: [{
         value: 'a',
         label: '黄金糕'
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     newpage() {
-      console.log("");
+      this.navlist.push(this.$route.path)
     },
     handleCommand(command) {
       this.$message('click on item ' + command);

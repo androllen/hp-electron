@@ -45,26 +45,22 @@ export default {
     onStart() {
       this.m_disable = true;
       if (this.m_target.length == 16) {
-        GetMd516(this.m_target, (obj) => {
-          for (var i = 0; i < obj.length; ++i) {
-            var _email = new ModelMd5(obj[i].md5_32, obj[i].md5_16, obj[i].sn);
-            console.log(_email);
-            this.m_tableData.push(_email);
-          }
-        });
+        GetMd516(this.m_target, this.dataDeal);
       } else {
-        GetMd532(this.m_target, (obj) => {
-          for (var i = 0; i < obj.length; ++i) {
-            var _email = new ModelMd5(obj[i].md5_32, obj[i].md5_16, obj[i].sn);
-            console.log(_email);
-            this.m_tableData.push(_email);
-          }
-        });
+        GetMd532(this.m_target, this.dataDeal);
       }
       this.m_disable = false;
     },
     onStop() {
       this.m_disable = false;
+    },
+    dataDeal(obj) {
+      console.log('begin deal');
+      for (var i = 0; i < obj.length; ++i) {
+        var _model = new ModelMd5(obj[i].md5_32, obj[i].md5_16, obj[i].SN);
+        console.log(_model);
+        this.m_tableData.push(_model);
+      }
     },
   },
 };

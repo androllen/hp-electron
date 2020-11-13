@@ -32,3 +32,5 @@ yarn add element-ui
 ```sh
 yarn electron:serve
 ```
+
+mklink /d TXThrift  D:\4Dogs\V3.0_TX\TXThrift
