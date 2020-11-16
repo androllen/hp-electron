@@ -4,6 +4,8 @@ import { app, protocol, BrowserWindow, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { getShell } from './service'
+import { initDB } from './db/md5';
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -106,6 +108,7 @@ app.on('ready', async () => {
   }
   createWindow()
   getShell()
+  initDB()
 })
 
 // Exit cleanly on request from parent process in development mode.
