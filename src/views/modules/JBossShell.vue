@@ -1,15 +1,10 @@
 <template>
   <div>
-    <div id="target">
-      <div>
+    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_placeholder" @start="onStart" @stop="onStop">
+      <template v-slot:goback>
         <el-button class="gobtn" @click="onGo">返回</el-button>
-        <el-input class="ctl_input" ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="请输入内容"></el-input>
-        <div>
-          <el-button type="primary" :disabled="m_disable" @click="onStart">扫描</el-button>
-          <el-button @click="onStop">停止</el-button>
-        </div>
-      </div>
-    </div>
+      </template>
+    </TxTarget>
     <div id="content">
       <p>结果显示：</p>
       <p>{{ Success }}</p>
@@ -52,7 +47,7 @@ import ZmqJs from '../../service/zmq';
 
 var _data = {
   m_target: '',
-  m_disable: false,
+  m_placeholder: '请输入内容',
   Success: '',
   Username: '',
   Passwd: '',
@@ -69,18 +64,16 @@ export default {
       this.m_target = this.$route.query.targe;
     });
   },
-  beforeCreate() {},
   methods: {
     onGo() {
       this.$router.go(-1);
     },
-    onStart() {
-      this.m_disable = true;
+    onStart(args) {
       var task = {
         id: GUID(),
         scriptid: 'poc_framework',
         parameters: {
-          url: this.m_target,
+          url: args,
           pocname: 'jboss_adminconsole_brute',
         },
       };
@@ -96,46 +89,32 @@ export default {
             console.log('this ia public data');
             var obj = JSON.parse(json);
             console.log(obj);
-			this.Passwd = obj.passwd
-			this.Username = obj.username
-			this.RequestResult = obj.request[0]
-			this.ResponseResult = obj.response[0]
-			this.Success = obj.success.toString()
-
-            this.m_disable = false;
+            this.Passwd = obj.passwd;
+            this.Username = obj.username;
+            this.RequestResult = obj.request[0];
+            this.ResponseResult = obj.response[0];
+            this.Success = obj.success.toString();
           } else if (json == 'end!!!') {
             console.log('end!!!');
           } else if (json.StartsWith('error_')) {
             console.log('error_');
           }
         } catch (e) {
-          console.log('error..');
+          console.log('error' + e);
         } finally {
-          this.m_disable = false;
+          this.$refs.isdisabled.onDisabled(false);
         }
       });
     },
-    onStop() {
-      this.m_disable = false;
+    onStop() {},
+    onGo() {
+      this.$router.go(-1);
     },
   },
 };
 </script>
 
 <style scoped>
-#target {
-  background-color: #f7f7f7;
-  padding: 10px;
-}
-.gobtn {
-  float: left;
-  margin-right: 10px;
-}
-.ctl_input {
-  width: 70%;
-  float: left;
-  margin-right: 10px;
-}
 #content {
   margin: 0px 10px 10px;
 }
@@ -163,5 +142,9 @@ p {
   overflow-x: hidden;
   scrollbar-track-color: #95a6aa;
   scrollbar-darkshadow-color: #85989c;
+}
+.gobtn {
+  float: left;
+  margin-left: 10px;
 }
 </style>

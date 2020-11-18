@@ -15,7 +15,6 @@
 </template>
 
 <script type="text/javascript">
-// https://blog.csdn.net/qq_40282732/article/details/104343595
 import { GUID } from '@/utils';
 import ZmqJs from '@/service/zmq';
 
@@ -48,7 +47,6 @@ export default {
             var obj = JSON.parse(json);
             console.log(obj);
             this.m_tableData.push(obj);
-            this.$refs.isdisabled.onDisabled(false);
           } else if (json == 'end!!!') {
             console.log('end!!!');
           } else if (json.StartsWith('error_')) {

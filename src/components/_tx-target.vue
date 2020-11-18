@@ -1,18 +1,24 @@
 <template>
   <div class="el-flex-container">
     <div class="flex-container">
+      <div class="el-item none">
+        <slot name="goback">
+      </slot>
+      </div>
       <el-input
         ref="inputtarget"
         class="el-item auto"
         :value="m_target"
         @input="onInput"
         :disabled="m_disabled"
-        placeholder="请输入内容"
+        :placeholder="m_placeholder"
       ></el-input>
       <el-button class="el-item none" type="primary" :disabled="m_disabled" @click="onStart">开始</el-button>
       <el-button class="el-item none" @click="onStop">停止</el-button>
     </div>
-    <div class="el-no-flex-container"></div>
+    <div class="el-no-flex-container">
+      <slot name="other"></slot>
+    </div>
   </div>
 </template>
 
@@ -23,10 +29,12 @@ export default {
     return {
       m_target: this.target,
       m_disabled: false,
+      m_placeholder:this.placeholder
     };
   },
   props: {
     target: String,
+    placeholder: String
   },
   methods: {
     onInput(args) {
@@ -63,9 +71,13 @@ export default {
 .el-no-flex-container {
   display: flex;
 }
-
+.el-button+.el-button {
+    margin-left: 0px;
+}
 .el-item {
-  margin: 1em;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   min-width: 0;
 }
 

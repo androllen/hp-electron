@@ -1,21 +1,19 @@
 <template>
-  <div class="el-box" id="shell">
-    <div class="el-nav" id="shell">
-      <div class="logo">
-        <img alt="Vue logo" src="../assets/logo.png" />
-        <BaseSearch />
-      </div>
-      <div class="views" id="menu">
+  <div class="boxside" id="shell">
+    <div class="navside" id="shell">
+      <img alt="Vue logo" src="../assets/logo.png" />
+      <BaseSearch />
+      <div id="menu">
         <BaseMenu />
       </div>
       <div class="setting"></div>
     </div>
 
-    <div class="el-content" id="shell">
+    <div class="contentside" id="shell">
       <div class="title">
         <BaseHistory />
       </div>
-      <div class="views">
+      <div class="content">
         <BaseTarget />
       </div>
       <div class="logger">
@@ -41,8 +39,7 @@ function autodivheight() {
     winHeight = document.documentElement.clientHeight;
   }
   document.getElementById('shell').style.height = winHeight + 'px';
-  document.getElementById('menu').style.height = winHeight - 204  + 'px';
-
+  document.getElementById('menu').style.height = winHeight - 200 + 'px';
 }
 import BaseSearch from '@/components/BaseSearch.vue';
 import BaseMenu from '@/components/BaseMenu.vue';
@@ -70,20 +67,19 @@ export default {
 };
 </script>
 
-
 <style>
-.el-box {
-  overflow: hidden;
+.boxside {
   display: flex;
+  overflow: hidden;
 }
 
-.el-nav {
+.navside {
   display: flex;
   flex-direction: column;
   width: 250px;
 }
 
-.el-content {
+.contentside {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -99,16 +95,14 @@ export default {
   height: 90px;
 }
 
-.views {
-  background-color: transparent;
+.content {
+  border-left-color: rgb(230, 230, 230);
+  border-left-style: solid;
+  border-left-width: 1px;
   overflow: hidden;
   height: 100%;
 }
 
-.logo {
-  background: #1f3359;
-  height: auto;
-}
 .setting {
   background-color: #1f3359;
   height: 60px;

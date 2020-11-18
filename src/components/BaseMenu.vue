@@ -60,16 +60,19 @@ export default {
 </script>
 
 <style scoped>
+.el-menu {
+  border-right: 0px;
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
+  background-color: #FFF;
+}
 .views {
   height: 100%;
+  background-color: transparent;
 }
-
 .nui-scroll {
-  border-left-width: 0px;
-  border-right-width: 1px;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  border-color: #000;
   width: auto;
   overflow: auto;
 }

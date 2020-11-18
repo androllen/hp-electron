@@ -2,7 +2,7 @@
   <div>
     <el-autocomplete
       class="inline-input"
-      v-model="state2"
+      v-model="state"
       :fetch-suggestions="querySearch"
       placeholder="请输入内容"
       :trigger-on-focus="false"
@@ -12,14 +12,13 @@
 </template>
 
 <script>
-import Bus from '../router/bus'
+import Bus from '../router/bus';
 
 export default {
   data() {
     return {
       restaurants: [],
-      state1: '',
-      state2: '',
+      state: '',
     };
   },
   methods: {
@@ -51,8 +50,8 @@ export default {
     },
     handleSelect(item) {
       console.log(item);
-	  this.$router.push({ path: item.address });
-      Bus.$emit('activeIndex',item.address)
+      this.$router.push({ path: item.address });
+      Bus.$emit('activeIndex', item.address);
     },
   },
   mounted() {

@@ -1,14 +1,7 @@
 <template>
   <div>
-    <div id="target">
-      <div id="_t_input">
-        <el-input ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="请输入内容"> </el-input>
-      </div>
-      <div id="_t_input_btn">
-        <el-button type="primary" :disabled="m_disable" @click="onStart"> 开始 </el-button>
-        <el-button @click="onStop">停止</el-button>
-      </div>
-    </div>
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop"> </TxTarget>
+
     <div id="content">
       <div>
         <p><strong>扫描结果</strong></p>
@@ -70,14 +63,13 @@ import { ModeMX, ModeNs } from '../../model';
 
 var _data = {
   m_target: 'http://www.4dogs.cn/',
-  m_disable: false,
   m_result: '',
   m_domain: '',
   m_email: '',
   m_register: '',
   m_phone: '',
   m_addr: '',
-  m_type:[],
+  m_type: [],
   m_ns: [],
   m_mx: [],
 };
@@ -86,18 +78,12 @@ export default {
   data() {
     return _data;
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.inputName.focus();
-    });
-  },
   methods: {
-    onStart() {
-      this.m_disable = true;
+    onStart(args) {
       var task = {
         id: GUID(),
         scriptid: 'who_is',
-        parameters: { url: this.m_target },
+        parameters: { url: args },
       };
       this.m_result = '';
       console.log(task);
@@ -132,41 +118,24 @@ export default {
                 this.m_mx.push(temp);
               });
             });
-
-            this.m_disable = false;
           } else if (json == 'end!!!') {
             console.log('end!!!');
           } else if (json.StartsWith('error_')) {
             console.log('error_');
           }
         } catch (e) {
-          console.log('error..');
+          console.log('error' + e);
         } finally {
-          this.m_disable = false;
+          this.$refs.isdisabled.onDisabled(false);
         }
       });
     },
-    onStop() {
-      this.m_disable = false;
-    },
+    onStop() {},
   },
 };
 </script>
 
 <style scoped>
-#target {
-  background-color: #f7f7f7;
-  height: 40px;
-  padding: 10px;
-}
-#_t_input {
-  width: 80%;
-  float: left;
-}
-#_t_input_btn {
-  left: 80%;
-  display: inline;
-}
 #content {
   padding: 0px 10px 10px;
   float: left;

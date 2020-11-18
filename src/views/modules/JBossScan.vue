@@ -1,14 +1,6 @@
 <template>
   <div>
-    <div id="target">
-      <div>
-        <el-input class="ctl_input" ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="请输入内容"></el-input>
-        <div>
-          <el-button type="primary" :disabled="m_disable" @click="onStart"> 开始 </el-button>
-          <el-button @click="onStop">停止</el-button>
-        </div>
-      </div>
-    </div>
+    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_placeholder" @start="onStart"  @stop="onStop"> </TxTarget>
     <div id="content">
       <p><strong>扫描结果</strong></p>
       <div>
@@ -28,13 +20,13 @@
 </template>
 
 <script>
-import { GUID } from '../../utils';
-import ZmqJs from '../../service/zmq';
+import { GUID } from '@/utils';
+import ZmqJs from '@/service/zmq';
 
 var _data = {
   m_target: 'http://192.168.0.109:8280',
-  m_disable: false,
   Seen: false,
+  m_placeholder: '请输入内容',
   tableData: [
     {
       PocName: 'CVE-2017-12149',
@@ -63,13 +55,12 @@ export default {
       this.$router.push({ path: '/exp_jboss_shell', query: { targe: this.m_target } });
       console.log(this.m_target);
     },
-    onStart() {
-      this.m_disable = true;
+    onStart(args) {
       var task = {
         id: GUID(),
         scriptid: 'poc_framework',
         parameters: {
-          url: this.m_target,
+          url: args,
           pocname: 'Jboss_AdminConsole_infoleak',
         },
       };
@@ -94,23 +85,19 @@ export default {
                 this.Seen = true;
               }
             });
-
-            this.m_disable = false;
           } else if (json == 'end!!!') {
             console.log('end!!!');
           } else if (json.StartsWith('error_')) {
             console.log('error_');
           }
         } catch (e) {
-          console.log('error..');
+          console.log('error' + e);
         } finally {
-          this.m_disable = false;
+          this.$refs.isdisabled.onDisabled(false);
         }
       });
     },
-    onStop() {
-      this.m_disable = false;
-    },
+    onStop() {},
   },
 };
 </script>
@@ -121,11 +108,6 @@ export default {
   padding: 10px 10px 10px 10px;
 }
 
-.ctl_input {
-  width: 80%;
-  float: left;
-  margin-right: 10px;
-}
 p {
   float: left;
   margin-left: 5px;
