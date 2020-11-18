@@ -4,11 +4,11 @@
       <el-input
         ref="inputtarget"
         class="el-item auto"
-        v-model="m_target"
-        :disabled="m_disable"
+        :value="m_target"
+        @input="onInput"
         placeholder="请输入内容"
       ></el-input>
-      <el-button class="el-item none" type="primary" :disabled="m_disable" @click="onStart">开始</el-button>
+      <el-button class="el-item none" type="primary"  @click="onStart">开始</el-button>
       <el-button class="el-item none" @click="onStop">停止</el-button>
     </div>
     <div class="el-no-flex-container"></div>
@@ -21,16 +21,18 @@ export default {
   data() {
     return {
       m_target: this.target,
-      m_disable: this.enabled,
     };
   },
   props: {
     target: String,
-    enabled: Boolean,
   },
   methods: {
+    onInput(args){
+      this.m_target= args;
+      console.log(args);
+    },
     onStart() {
-      this.m_disable = true;
+      // this.m_disable = true;
       this.$emit('start', this.m_target);
     },
     onStop() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TxTarget :target="m_target" :enabled="m_disable" @start="onStart" @stop="onStop"> </TxTarget>
+    <TxTarget :target="m_target" :isEnabled="isDisable" @start="onStart" @stop="onStop"> </TxTarget>
     <div id="content">
       <p><strong>扫描结果</strong></p>
       <div>
@@ -21,7 +21,7 @@ import ZmqJs from '@/service/zmq';
 
 var _data = {
   m_target: 'http://www.4dogs.cn',
-  m_disable: false,
+  isDisable: false,
   m_tableData: [],
 };
 
@@ -66,7 +66,7 @@ export default {
     },
     onStop() {
       console.log('test');
-      this.m_disable = false;
+      // this.isDisable = false;
     },
   },
 };
