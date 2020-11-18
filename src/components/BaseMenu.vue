@@ -65,7 +65,6 @@ export default {
 }
 
 .nui-scroll {
-  border-style: solid;
   border-left-width: 0px;
   border-right-width: 1px;
   border-top-width: 1px;
