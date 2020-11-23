@@ -1,24 +1,20 @@
 <template>
   <div>
-    <div id="target">
-      <div>
-        <el-input class="ctl_input" ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="请输入内容"></el-input>
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop">
+      <template v-slot:other>
         <div>
-          <el-button type="primary" :disabled="m_disable" @click="onStart"> 开始 </el-button>
-          <el-button @click="onStop">停止</el-button>
+          <el-form ref="form" label-width="100px">
+            <el-form-item label="选择搜索引擎:">
+              <el-radio-group v-model="search">
+                <el-radio label="Bing">Bing</el-radio>
+                <el-radio label="Baidu">Baidu</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-form>
         </div>
-      </div>
-      <div>
-        <el-form ref="form" label-width="100px">
-          <el-form-item label="选择搜索引擎:">
-            <el-radio-group v-model="search">
-              <el-radio label="Bing">Bing</el-radio>
-              <el-radio label="Baidu">Baidu</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-form>
-      </div>
-    </div>
+      </template>
+    </TxTarget>
+
     <div id="content">
       <p>扫描结果</p>
       <div>
@@ -38,7 +34,6 @@ import { ModelUrl } from '../../model';
 
 var _data = {
   m_target: '4dogs',
-  m_disable: false,
   m_tableData: [],
   search: 'Baidu',
 };
@@ -47,14 +42,8 @@ export default {
   data() {
     return _data;
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.inputName.focus();
-    });
-  },
   methods: {
     onStart() {
-      this.m_disable = true;
       var task = {
         id: GUID(),
         scriptid: 'aux_tool',
@@ -84,52 +73,36 @@ export default {
                 this.m_tableData.push(temp);
               }
             });
-
-            this.m_disable = false;
           } else if (json == 'end!!!') {
             console.log('end!!!');
           } else if (json.StartsWith('error_')) {
             console.log('error_');
           }
         } catch (e) {
-          console.log('error..' + e);
+          console.log('error' + e);
         } finally {
-          this.m_disable = false;
+          this.$refs.isdisabled.onDisabled(false);
         }
       });
     },
     onStop() {
-      this.m_disable = false;
+      this.$refs.isdisabled.onDisabled(false);
     },
   },
 };
 </script>
 
 <style scoped>
-#target {
-  background-color: #f7f7f7;
-  padding: 10px 10px 0px 10px;
-}
-
-.ctl_input {
-  width: 80%;
-  float: left;
-  margin-right: 10px;
-}
-
-#select {
-  float: left;
-}
 #content {
   margin: 0px 0px 10px 10px;
-  clear: both;
   float: left;
 }
 
-.el-radio-group {
-  float: left;
-  margin-top: 13px;
+.el-form-item {
+  margin-bottom: 2px;
+  margin-left: 10px;
 }
+
 p {
   float: left;
 }

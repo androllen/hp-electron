@@ -1,14 +1,6 @@
 <template>
   <div>
-    <div id="target">
-      <div id="_t_input">
-        <el-input ref="inputName" v-model="m_target" :disabled="m_disable" placeholder="16/32 位 MD5值"> </el-input>
-      </div>
-      <div id="_t_input_btn">
-        <el-button type="primary" :disabled="m_disable" @click="onStart"> 开始 </el-button>
-        <el-button @click="onStop">停止</el-button>
-      </div>
-    </div>
+    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_holder" @start="onStart" @stop="onStop"> </TxTarget>
     <div id="content">
       <p><strong>扫描结果</strong></p>
       <div>
@@ -28,7 +20,7 @@ import { GetMd516, GetMd532 } from '../../db/md5';
 
 var _data = {
   m_target: 'ac59075b964b0715',
-  m_disable: false,
+  m_holder: '16/32 位 MD5值',
   m_tableData: [],
 };
 
@@ -36,24 +28,16 @@ export default {
   data() {
     return _data;
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.inputName.focus();
-    });
-  },
   methods: {
     onStart() {
-      this.m_disable = true;
       if (this.m_target.length == 16) {
         GetMd516(this.m_target, this.dataDeal);
       } else {
         GetMd532(this.m_target, this.dataDeal);
       }
-      this.m_disable = false;
+      this.$refs.isdisabled.onDisabled(false);
     },
-    onStop() {
-      this.m_disable = false;
-    },
+    onStop() {},
     dataDeal(obj) {
       console.log('begin deal');
       for (var i = 0; i < obj.length; ++i) {
@@ -67,22 +51,6 @@ export default {
 </script>
 
 <style scoped>
-#target {
-  background-color: #f7f7f7;
-  height: 40px;
-  padding: 10px;
-}
-
-#_t_input {
-  width: 80%;
-  float: left;
-}
-
-#_t_input_btn {
-  left: 80%;
-  display: inline;
-}
-
 #content {
   margin: 0px 10px 10px;
 }

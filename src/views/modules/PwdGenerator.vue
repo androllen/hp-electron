@@ -1,102 +1,149 @@
 <template>
-  <el-form :label-position="labelPosition" label-width="80px">
-    <el-form-item label="目标全名">
-      <el-col :span="11">
-        <el-input
-          ref="inputName"
-          v-model="m_fullName"
-          :disabled="m_disable"
-          placeholder="每个字的拼音以空格隔开,全小写,最多支持三个字的名字，多个名字以逗号分开"
-        ></el-input>
-      </el-col>
-      <el-col class="line" :span="2">昵称</el-col>
-      <el-col :span="11">
-        <el-form-item>
-          <el-input ref="inputName" v-model="m_nickname" :disabled="m_disable" placeholder="多个昵称以逗号分开"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="日期">
-      <el-col :span="11">
-        <el-input
-          ref="inputName"
-          v-model="m_datetime"
-          :disabled="m_disable"
-          placeholder="包括生日在内的重要日期列表,格式:19980405,多个日期以逗号分开"
-        ></el-input>
-      </el-col>
-      <el-col class="line" :span="2">电话号码</el-col>
-      <el-col :span="11">
-        <el-form-item>
-          <el-input ref="inputName" v-model="m_phonenum" :disabled="m_disable" placeholder="多个号码以逗号分开"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="旧密码">
-      <el-col :span="11">
-        <el-input ref="inputName" v-model="m_oldpwd" :disabled="m_disable" placeholder="多个密码以逗号分开"></el-input>
-      </el-col>
-      <el-col class="line" :span="2">数字</el-col>
-      <el-col :span="11">
-        <el-form-item>
-          <el-input
-            ref="inputName"
-            v-model="m_number"
-            :disabled="m_disable"
-            placeholder="可能出现的数字，多个数字以逗号分开"
-          ></el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="关键词">
-      <el-col :span="11">
-        <el-input ref="inputName" v-model="m_keyvalue" :disabled="m_disable" placeholder="全小写,多个关键词以逗号分开"></el-input>
-      </el-col>
-      <el-col class="line" :span="2">爱人名称</el-col>
-      <el-col :span="11">
-        <el-form-item>
-          <el-input
-            ref="inputName"
-            v-model="m_lovename"
-            :disabled="m_disable"
-            placeholder="每个字的拼音之间以空格分开，全小写,最多支持三个字的名字,多个名字以逗号分开"
-          ></el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="机构名称">
-      <el-col :span="11">
-        <el-input
-          ref="inputName"
-          v-model="m_organization"
-          :disabled="m_disable"
-          placeholder="包括工作单位,每个字的拼音以空格隔开;全小写,多个组织以逗号分开，全小写,最多支持三个字的名字,多个名字以逗号分开"
-        ></el-input>
-      </el-col>
-      <el-col class="line" :span="2">目标QQ</el-col>
-      <el-col :span="11">
-        <el-form-item>
-          <el-input ref="inputName" v-model="m_qq" :disabled="m_disable" placeholder="多个QQ以逗号分开"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-
-    <el-form-item label="逻辑值">
-      <el-radio-group v-model="logic">
-        <el-radio label="0">0</el-radio>
-        <el-radio label="1">1</el-radio>
-      </el-radio-group>
-    </el-form-item>
-
-    <el-form-item label="保存路径">
-      <p>{{ savefilepath }}</p>
-    </el-form-item>
-
-    <el-form-item>
-      <el-button type="primary" @click="onStart">开始</el-button>
-      <el-button @click="onStop">停止</el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <div class="flex-container">
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">目标全名:</div>
+          <div class="form-input auto">
+            <el-input
+              ref="inputName"
+              v-model="m_fullName"
+              :disabled="m_disable"
+              placeholder="每个字的拼音以空格隔开,全小写,最多支持三个字的名字，多个名字以逗号分开"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">昵称:</div>
+          <div class="form-input auto">
+            <el-input ref="inputName" v-model="m_nickname" :disabled="m_disable" placeholder="多个昵称以逗号分开"></el-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">日期:</div>
+          <div class="form-input auto">
+            <el-input
+              ref="inputName"
+              v-model="m_datetime"
+              :disabled="m_disable"
+              placeholder="包括生日在内的重要日期列表,格式:19980405,多个日期以逗号分开"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">电话号码:</div>
+          <div class="form-input auto">
+            <el-input ref="inputName" v-model="m_phonenum" :disabled="m_disable" placeholder="多个号码以逗号分开"></el-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">旧密码:</div>
+          <div class="form-input auto">
+            <el-input ref="inputName" v-model="m_oldpwd" :disabled="m_disable" placeholder="多个密码以逗号分开"></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">数字:</div>
+          <div class="form-input auto">
+            <el-input
+              ref="inputName"
+              v-model="m_number"
+              :disabled="m_disable"
+              placeholder="可能出现的数字，多个数字以逗号分开"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">关键词:</div>
+          <div class="form-input auto">
+            <el-input
+              ref="inputName"
+              v-model="m_keyvalue"
+              :disabled="m_disable"
+              placeholder="全小写,多个关键词以逗号分开"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">爱人名称:</div>
+          <div class="form-input auto">
+            <el-input
+              ref="inputName"
+              v-model="m_lovename"
+              :disabled="m_disable"
+              placeholder="每个字的拼音之间以空格分开，全小写,最多支持三个字的名字,多个名字以逗号分开"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">机构名称:</div>
+          <div class="form-input auto">
+            <el-input
+              ref="inputName"
+              v-model="m_organization"
+              :disabled="m_disable"
+              placeholder="包括工作单位,每个字的拼音以空格隔开;全小写,多个组织以逗号分开，全小写,最多支持三个字的名字,多个名字以逗号分开"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">目标QQ:</div>
+          <div class="form-input auto">
+            <el-input ref="inputName" v-model="m_qq" :disabled="m_disable" placeholder="多个QQ以逗号分开"></el-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="auto">
+        <div class="el-form-container">
+          <div class="item none">逻辑值:</div>
+          <div class="form-input auto">
+            <el-radio-group v-model="logic">
+              <el-radio label="0">0</el-radio>
+              <el-radio label="1">1</el-radio>
+            </el-radio-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="el-form-container">
+      <el-button class="form-input none" type="primary" @click="onSelect">选择</el-button>
+      <div class="form-input auto">
+        <el-input ref="inputName" v-model="m_file" placeholder="请选择保存文件地址"></el-input>
+      </div>
+    </div>
+    <div class="el-form-container">
+      <el-button class="form-input none" type="primary" @click="onStart">开始</el-button>
+      <el-button class="form-input none" @click="onStop">停止</el-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -104,10 +151,7 @@ import { GUID } from '../../utils';
 import { writeFile } from '../../service/file';
 import ZmqJs from '../../service/zmq';
 
-const { app } = window.require('electron').remote;
-let appDataPath = app.getPath('desktop');
-let savefilepath=undefined
-
+const { dialog } = window.require('electron').remote;
 export default {
   data() {
     return {
@@ -123,21 +167,27 @@ export default {
       m_lovename: 'alita',
       m_organization: 'happy',
       m_qq: '123',
-      logic: '0'
+      logic: '0',
+      m_file: '',
     };
   },
-  beforeCreate() {
-    this.savefilepath = appDataPath + '\\' + 'test.txt';
-    console.log(this.savefilepath);
-    const buffer = '';
-    writeFile(this.savefilepath, buffer, function (err) {
-      if (err) {
-        console.error(err);
-      }
-      console.info('write success');
-    });
-  },
   methods: {
+    onSelect() {
+      dialog
+        .showOpenDialog({
+          title: '打开文件',
+          defaultPath: '',
+          properties: ['openFile', 'multiSelections'],
+          filters: [
+            { name: 'Text', extensions: ['txt'] },
+            { name: 'All Files', extensions: ['*'] },
+          ],
+        })
+        .then((result) => {
+          console.log(result.filePaths);
+          this.m_file = result.filePaths[0];
+        });
+    },
     onStart() {
       this.m_disable = true;
 
@@ -156,8 +206,8 @@ export default {
           lovernameList: this.m_lovename,
           organizationList: this.m_organization,
           qq: this.m_qq,
-          weakpasswd: this.logic==='0' ? '0' :'1',
-          output: this.savefilepath,
+          weakpasswd: this.logic === '0' ? '0' : '1',
+          output: this.m_file,
         },
       };
       console.log(task);
@@ -188,19 +238,35 @@ export default {
     },
     onStop() {
       this.m_disable = false;
-
     },
   },
 };
 </script>
 
 <style scoped>
-.line {
-  text-align: right;
-  padding: 0 6px 0 0px;
+.flex-container {
+  overflow: hidden;
+  display: flex;
+}
+.el-form-container {
+  display: flex;
 }
 
-el-form-item {
-  float: left;
+.auto {
+  flex: auto;
+}
+.none {
+  flex: none;
+}
+
+.item {
+  margin: 10px;
+  min-width: 0;
+  font-size: 14px;
+  width: 60px;
+  align-self: center;
+}
+.form-input {
+  margin: 10px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs class="el-ecrypt" v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="凯撒加解密" name="first">
       <div id="app">
         <div class="box">
@@ -222,7 +222,7 @@ export default {
   width: 40%;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 0 15px 25px 15px;
+  padding: 0;
 }
 
 .ih {
@@ -239,5 +239,8 @@ p {
 }
 el-form-item {
   float: left;
+}
+.el-ecrypt{
+  margin: 10px;
 }
 </style>

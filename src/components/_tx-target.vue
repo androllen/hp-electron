@@ -2,8 +2,7 @@
   <div class="el-flex-container">
     <div class="flex-container">
       <div class="el-item none">
-        <slot name="goback">
-      </slot>
+        <slot name="goback"> </slot>
       </div>
       <el-input
         ref="inputtarget"
@@ -29,12 +28,12 @@ export default {
     return {
       m_target: this.target,
       m_disabled: false,
-      m_placeholder:this.placeholder
+      m_placeholder: this.placeholder,
     };
   },
   props: {
     target: String,
-    placeholder: String
+    placeholder: String,
   },
   methods: {
     onInput(args) {
@@ -57,13 +56,12 @@ export default {
 <style scoped>
 .el-flex-container {
   overflow: hidden;
-  background-color: #cbd0d1;
+  background-color: #f4f7f8;
   display: flex;
   flex-direction: column;
 }
 
 .flex-container {
-  background-color: #F4F7F8;
   overflow: hidden;
   display: flex;
 }
@@ -71,9 +69,11 @@ export default {
 .el-no-flex-container {
   display: flex;
 }
-.el-button+.el-button {
-    margin-left: 0px;
+
+.el-button + .el-button {
+  margin-left: 0px;
 }
+
 .el-item {
   margin-top: 10px;
   margin-right: 10px;
@@ -94,7 +94,7 @@ export default {
   padding: 0;
   width: 110px;
   min-width: 0;
-  background-color: #1B5385;
+  background-color: #1b5385;
   color: white;
   font-family: monospace;
   font-size: 13px;
