@@ -1,3 +1,10 @@
 <template>
-  <router-view class="view"></router-view>
+  <router-view class="views"></router-view>
 </template>
+
+<style scoped>
+.views {
+  height: 100%;
+  background-color: transparent;
+}
+</style>

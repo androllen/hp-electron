@@ -115,10 +115,10 @@ var _data = {
   Keylock: '',
   Mark: '',
   IsUpper: '',
-  output:'',
-  Space:'',
-  Short:'',
-  Long:''
+  output: '',
+  Space: '',
+  Short: '',
+  Long: '',
 };
 
 export default {
@@ -138,7 +138,7 @@ export default {
             input: this.input,
             key: this.Keylock === '' ? 'auto' : this.Keylock,
             mark: this.Mark,
-            case: this.IsUpper === true ? 'upper' : 'lower'
+            case: this.IsUpper === true ? 'upper' : 'lower',
           },
         };
       } else if (this.activeName == 'second') {
@@ -152,7 +152,7 @@ export default {
             input: this.input,
             key: this.Keylock === '' ? 'auto' : this.Keylock,
             mark: this.Mark,
-            case: this.IsUpper === true ? 'upper' : 'lower'
+            case: this.IsUpper === true ? 'upper' : 'lower',
           },
         };
       } else {
@@ -167,7 +167,7 @@ export default {
             var_space: this.Space,
             var_short: this.Short,
             var_long: this.Long,
-            case: this.IsUpper === true ? 'upper' : 'lower'
+            case: this.IsUpper === true ? 'upper' : 'lower',
           },
         };
       }
@@ -183,7 +183,7 @@ export default {
             console.log('this ia public data');
             var obj = JSON.parse(json);
             console.log(obj);
-            this.output= obj.result;
+            this.output = obj.result;
           } else if (json == 'end!!!') {
             console.log('end!!!');
           } else if (json.StartsWith('error_')) {
@@ -240,7 +240,7 @@ p {
 el-form-item {
   float: left;
 }
-.el-ecrypt{
+.el-ecrypt {
   margin: 10px;
 }
 </style>

@@ -32,10 +32,6 @@ function createWindow() {
       allowRunningInsecureContent: true,
       enableRemoteModule: true
     },
-    // 固定宽高
-    resizable: true,
-    // 边框隐藏
-    frame: true,
     icon: `${__static}/app.ico`
   })
 

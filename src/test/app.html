@@ -9,6 +9,53 @@
   <!-- import CSS  -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   <style>
+    @keyframes mymove {
+      0% {
+        margin-left: 0px;
+      }
+
+      50% {
+        margin-left: 400px;
+      }
+
+      100% {
+        margin-left: 0px;
+      }
+    }
+
+    @keyframes mymove1 {
+      0% {
+        margin-left: 0px;
+      }
+
+      50% {
+        margin-left: 400px;
+      }
+
+      100% {
+        margin-left: 0px;
+      }
+    }
+
+    .box {
+      margin: 50px 0;
+      width: 100px;
+      height: 100px;
+      background-color: #5578a2;
+    }
+
+    .play {
+      animation: mymove 5s infinite ease;
+    }
+
+    .restart {
+      animation: mymove1 5s infinite ease;
+    }
+
+    .pause {
+      animation-play-state: paused;
+    }
+
     .flex-container {
       background-color: #F4F7F8;
       resize: both;
@@ -26,6 +73,26 @@
       padding: 0.5em;
       width: 110px;
       min-width: 0;
+      background-color: #1B5385;
+      color: white;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .auto-flex-container {
+      overflow: hidden;
+      margin: 1em;
+      height: 500px;
+      background-color: #cbd0d1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .autoitem {
+      margin: 1em;
+      padding: 0.5em;
+      min-width: 0;
+      height: auto;
       background-color: #1B5385;
       color: white;
       font-family: monospace;
@@ -127,7 +194,7 @@
     }
 
     p {
-      color: white;
+      color: grey;
       font-size: x-large;
     }
   </style>
@@ -168,9 +235,9 @@
 
     </div>
 
-    <div class="flex-container">
-      <div class="item auto">auto</div>
-      <div class="item auto">auto</div>
+    <div class="auto-flex-container">
+      <div class="item none">none</div>
+      <div class="autoitem auto">auto</div>
       <div class="item none">none</div>
     </div>
 
@@ -333,13 +400,15 @@
     </div>
     <button-counter></button-counter>
     <blog-post v-for="post in posts" :id="post.id" :title="post.title"></blog-post>
+    <div class="box" v-bind:class="classObject"></div>
+    <p>{{currentState}}</p>
+    <div class="control">
+      <button value="播放" @click="onPlay('播放')">播放</button>
+      <button value="暂停" @click="onPause('暂停')">暂停</button>
+      <button value="重新开始" @click="onRestart('重新开始')">重新开始</button>
+    </div>
   </div>
-
-
 </body>
-
-
-
 <!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
@@ -368,7 +437,39 @@
           { id: 1, title: 'with Vue' },
           { id: 2, title: 'Blogging with Vue' },
           { id: 3, title: 'Why Vue is so fun' }
-        ]
+        ],
+        currentState: '',
+        classObject: {
+          play: true,
+          restart: false,
+          pause: false
+        }
+      }
+    },
+    methods: {
+      onPlay(args) {
+        this.classObject.play = true;
+        this.classObject.pause = false;
+        this.classObject.restart = false;
+        this.currentState = args;
+      },
+      onPause(args) {
+        this.classObject.pause = true;
+        this.classObject.play = true;
+        this.classObject.restart = false;
+        this.currentState = args;
+      },
+      onRestart(args) {
+        this.classObject.pause = false;
+        if (this.classObject.play) {
+          this.classObject.restart = true;
+          this.classObject.play = false;
+        }
+        else {
+          this.classObject.restart = false;
+          this.classObject.play = true;
+        }
+        this.currentState = args;
       }
     },
   })

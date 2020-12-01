@@ -13,7 +13,7 @@
       <div class="title">
         <BaseHistory />
       </div>
-      <div class="content">
+      <div class="content" id="target">
         <BaseTarget />
       </div>
       <div class="logger">
@@ -24,23 +24,6 @@
 </template>
 
 <script>
-/*
- DIV高度为浏览器窗口的高度
- 通过深入Document内部进行检测，获取浏览器窗口高度
-*/
-function autodivheight() {
-  let winHeight = 0;
-  if (window.innerHeight) {
-    winHeight = window.innerHeight;
-  } else if (document.body && document.body.clientHeight) {
-    winHeight = document.body.clientHeight;
-  }
-  if (document.documentElement && document.documentElement.clientHeight) {
-    winHeight = document.documentElement.clientHeight;
-  }
-  document.getElementById('shell').style.height = winHeight + 'px';
-  document.getElementById('menu').style.height = winHeight - 200 + 'px';
-}
 import BaseSearch from '@/components/BaseSearch.vue';
 import BaseMenu from '@/components/BaseMenu.vue';
 import BaseHistory from '@/components/BaseHistory.vue';
@@ -56,18 +39,34 @@ export default {
     BaseTarget,
     BaseConsole,
   },
+  methods: {
+    onAutoHeight() {
+      let winHeight = 0;
+      if (window.innerHeight) {
+        winHeight = window.innerHeight;
+      } else if (document.body && document.body.clientHeight) {
+        winHeight = document.body.clientHeight;
+      }
+      if (document.documentElement && document.documentElement.clientHeight) {
+        winHeight = document.documentElement.clientHeight;
+      }
+      document.getElementById('shell').style.height = winHeight + 'px';
+      document.getElementById('menu').style.height = winHeight - 200 + 'px';
+      document.getElementById('target').style.height = winHeight - 37 - 90 + 'px';
+    },
+  },
   mounted() {
     window.onload = () => {
-      autodivheight();
+      this.onAutoHeight();
     };
-    window.onresize = () => {
-      autodivheight();
-    };
+    window.addEventListener('resize', () => {
+      this.onAutoHeight();
+    });
   },
 };
 </script>
 
-<style>
+<style scoped>
 .boxside {
   display: flex;
   overflow: hidden;
