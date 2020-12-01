@@ -51,24 +51,25 @@ export default {
       console.log(this.m_status);
     },
     onAutoHeight() {
-      let h3Height = document.getElementById('lable').clientHeight;
-      let loadingHeight = document.getElementById('load').offsetHeight;
       this.outputHeight = document.documentElement.clientHeight - 37 - 90 - this.targeHeight;
-      console.log('h3Height=' + h3Height);
+      let loadingHeight = document.getElementById('load').offsetHeight;
+      let lableHeight = document.getElementById('lable').clientHeight;
+      // console.log('lableHeight=' + lableHeight);
       // console.log(' loadingHeight=' + loadingHeight);
       // console.log('all - this.targeHeight =' + this.outputHeight);
       // console.log('input targeHeight=' + this.targeHeight);
-      let back = this.outputHeight - h3Height - loadingHeight - 15;
-      this.$emit('gotoback', back);
+      let backHeight = this.outputHeight - lableHeight - loadingHeight;
+      // console.log('this.outputHeight - h3Height - loadingHeight = ' + backHeight);
+      this.$emit('gotoback', backHeight);
     },
   },
-  beforeUpdate() {
-    this.onAutoHeight();
-  },
-  updated() {
-    this.onAutoHeight();
-  },
   mounted() {
+    this.$nextTick(() => {
+      this.onAutoHeight();
+    });
+    window.onload = () => {
+      this.onAutoHeight();
+    };
     window.onresize = () => {
       this.onAutoHeight();
     };
@@ -107,8 +108,9 @@ export default {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   padding-left: 10px;
   font-size: 18px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin: 0;
 }
 .loading {
   padding-top: 0px;

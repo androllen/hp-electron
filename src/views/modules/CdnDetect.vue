@@ -1,16 +1,15 @@
 <template>
   <div>
-    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop"> </TxTarget>
-    <div id="content">
-      <p><strong>扫描结果</strong></p>
-      <div>
-        <el-table :data="m_tableData" style="width: 100%">
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop" @height="onHeight"> </TxTarget>
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
+      <template v-slot:other>
+        <el-table :data="m_tableData" style="width: 100%" :height="tableHeight">
           <el-table-column prop="ip" label="IP" width="180"></el-table-column>
           <el-table-column prop="CNAME" label="CName"></el-table-column>
           <el-table-column prop="vendor" label="CDN厂商"></el-table-column>
         </el-table>
-      </div>
-    </div>
+      </template>
+    </TxOutput>
   </div>
 </template>
 
@@ -21,6 +20,8 @@ import ZmqJs from '@/service/zmq';
 var _data = {
   m_target: 'http://www.4dogs.cn',
   m_tableData: [],
+  targeHeight: 0,
+  tableHeight: 0,
 };
 
 export default {
@@ -35,6 +36,7 @@ export default {
         parameters: { url: args },
       };
       this.m_tableData = [];
+      this.$refs.whatRun.onStart();
       console.log(task);
       ZmqJs.HandleSend(task, (topic) => {
         try {
@@ -56,22 +58,27 @@ export default {
           console.log('error..');
         } finally {
           this.$refs.isdisabled.onDisabled(false);
+          this.$refs.whatRun.onStop();
         }
       });
     },
     onStop() {
-      console.log('test');
+      this.$refs.whatRun.onStop();
+      this.$refs.isdisabled.onDisabled(false);
+    },
+    onHeight(args) {
+      this.targeHeight = args;
+    },
+    onGoBack(args) {
+      this.tableHeight = args;
     },
   },
 };
 </script>
 
 <style scoped>
-#content {
-  margin: 0px 10px 10px;
-}
-
-p {
-  float: left;
+.el-form-item {
+  margin-bottom: 2px;
+  margin-left: 10px;
 }
 </style>

@@ -1,23 +1,21 @@
 <template>
   <div>
-    <div id="txtarget">
-      <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop">
-        <template v-slot:other>
-          <div>
-            <el-form ref="form" label-width="100px">
-              <el-form-item label="选择搜索引擎:">
-                <el-radio-group v-model="search">
-                  <el-radio label="Bing">Bing</el-radio>
-                  <el-radio label="Baidu">Baidu</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-form>
-          </div>
-        </template>
-      </TxTarget>
-    </div>
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop" @height="onHeight">
+      <template v-slot:other>
+        <div>
+          <el-form ref="form" label-width="100px">
+            <el-form-item label="选择搜索引擎:">
+              <el-radio-group v-model="search">
+                <el-radio label="Bing">Bing</el-radio>
+                <el-radio label="Baidu">Baidu</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-form>
+        </div>
+      </template>
+    </TxTarget>
 
-    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onHeight">
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
       <template v-slot:other>
         <el-table :data="m_tableData" style="width: 100%" :height="tableHeight">
           <el-table-column prop="Url" label="Url"></el-table-column>
@@ -50,7 +48,7 @@ export default {
   methods: {
     onStart() {
       this.$refs.whatRun.onStart();
-
+      this.m_tableData = [];
       var obj = JSON.parse(this.json);
       obj.result.forEach((element) => {
         for (let key in element) {
@@ -58,26 +56,19 @@ export default {
           this.m_tableData.push(temp);
         }
       });
-
-      this.onAutoHeight();
     },
     onStop() {
       this.$refs.whatRun.onStop();
       this.$refs.isdisabled.onDisabled(false);
     },
-    onHeight(args) {
+    onGoBack(args) {
       this.$nextTick(() => {
         this.tableHeight = args;
       });
-      console.log('this.outputHeight - h3Height - loadingHeight = ' + args);
     },
-    onAutoHeight() {
-      this.targeHeight = document.getElementById('txtarget').offsetHeight;
-      console.log('urlgather nexttick' + '=targeHeight ' + this.targeHeight);
+    onHeight(args) {
+      this.targeHeight =args;
     },
-  },
-  mounted() {
-    this.onAutoHeight();
   },
 };
 </script>

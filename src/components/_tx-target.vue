@@ -1,5 +1,5 @@
 <template>
-  <div class="el-flex-container">
+  <div id="grid" class="el-flex-container">
     <div class="flex-container">
       <div class="el-item none">
         <slot name="goback"> </slot>
@@ -49,6 +49,11 @@ export default {
     onDisabled(args) {
       this.m_disabled = args;
     },
+  },
+  mounted() {
+    let targeHeight = document.getElementById('grid').offsetHeight;
+    console.log('child=' + targeHeight);
+    this.$emit('height', targeHeight);
   },
 };
 </script>

@@ -197,6 +197,17 @@
       color: grey;
       font-size: x-large;
     }
+
+    #demo {
+      width: 100px;
+      height: 200px;
+      background: yellow;
+      border: 2px solid blue;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-size: 18px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+    }
   </style>
 </head>
 
@@ -224,7 +235,7 @@
     <div class="el-flex-container">
       <div class="flex-container">
         <el-input class="el-item  auto" placeholder="请输入内容"></el-input>
-        <el-button class="el-item none">默认按钮</el-button>
+        <el-button class="el-item none" @click="onoffset">默认按钮</el-button>
         <el-button class="el-item none">默认按钮</el-button>
       </div>
       <div class="el-no-flex-container">
@@ -407,6 +418,10 @@
       <button value="暂停" @click="onPause('暂停')">暂停</button>
       <button value="重新开始" @click="onRestart('重新开始')">重新开始</button>
     </div>
+
+    <div id="demo">
+      <b>hello</b>
+    </div>
   </div>
 </body>
 <!-- import Vue before Element -->
@@ -470,6 +485,12 @@
           this.classObject.play = true;
         }
         this.currentState = args;
+      },
+
+      onoffset() {
+        var div = document.getElementById('demo');
+        console.log(div.offsetHeight); 
+        console.log(div.clientHeight);
       }
     },
   })
