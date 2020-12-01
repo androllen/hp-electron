@@ -1,24 +1,29 @@
 <template>
   <div>
-    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop"> </TxTarget>
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop" @height="onHeight"> </TxTarget>
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
+      <template v-slot:other>
+        <p>{{ m_result }}</p>
+      </template>
+    </TxOutput>
     <div id="content">
       <div>
         <p>扫描结果</p>
       </div>
-      <div>
-        <p>{{ m_result }}</p>
-      </div>
+      <div></div>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
-import { GUID } from "../../utils";
-import ZmqJs from "../../service/zmq";
+import { GUID } from '../../utils';
+import ZmqJs from '../../service/zmq';
 
 var _data = {
   m_target: 'http://www.shufaai.com/',
   m_result: '',
+  targeHeight: 0,
+  tableHeight: 0,
 };
 
 export default {
@@ -33,6 +38,7 @@ export default {
         parameters: { url: args },
       };
       this.m_result = '';
+      this.$refs.whatRun.onStart();
       console.log(task);
       ZmqJs.HandleSend(task, (topic) => {
         try {
@@ -54,11 +60,19 @@ export default {
           console.log('error' + e);
         } finally {
           this.$refs.isdisabled.onDisabled(false);
+          this.$refs.whatRun.onStop();
         }
       });
     },
     onStop() {
-      console.log('test');
+      this.$refs.whatRun.onStop();
+      this.$refs.isdisabled.onDisabled(false);
+    },
+    onHeight(args) {
+      this.targeHeight = args;
+    },
+    onGoBack(args) {
+      this.tableHeight = args;
     },
   },
 };

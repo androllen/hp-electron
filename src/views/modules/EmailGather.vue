@@ -1,25 +1,26 @@
 <template>
   <div>
-    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop"> </TxTarget>
-    <div id="content">
-      <p>扫描结果</p>
-      <div>
-        <el-table :data="m_tableData" style="width: 100%">
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop" @height="onHeight"> </TxTarget>
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
+      <template v-slot:other>
+        <el-table :data="m_tableData" style="width: 100%" :height="tableHeight">
           <el-table-column prop="value" label="邮箱" min-width="300" header-align="center"></el-table-column>
         </el-table>
-      </div>
-    </div>
+      </template>
+    </TxOutput>
   </div>
 </template>
 
 <script type="text/javascript">
-import { GUID } from "../../utils";
-import ZmqJs from "../../service/zmq";
-import { ModelEmail } from "../../model";
+import { GUID } from '../../utils';
+import ZmqJs from '../../service/zmq';
+import { ModelEmail } from '../../model';
 
 var _data = {
   m_target: 'nagapt.com',
   m_tableData: [],
+  targeHeight: 0,
+  tableHeight: 0,
 };
 
 export default {
@@ -33,6 +34,7 @@ export default {
         scriptid: 'mail_spider',
         parameters: { keyword: args },
       };
+      this.$refs.whatRun.onStart();
       this.m_tableData = [];
       ZmqJs.HandleSend(task, (topic) => {
         try {
@@ -59,20 +61,27 @@ export default {
           console.log('error' + e);
         } finally {
           this.$refs.isdisabled.onDisabled(false);
+          this.$refs.whatRun.onStop();
         }
       });
     },
-    onStop() {},
+    onStop() {
+      this.$refs.whatRun.onStop();
+      this.$refs.isdisabled.onDisabled(false);
+    },
+    onHeight(args) {
+      this.targeHeight = args;
+    },
+    onGoBack(args) {
+      this.tableHeight = args;
+    },
   },
 };
 </script>
 
 <style scoped>
-#content {
-  padding: 0px 10px 10px;
-}
-
-p {
-  float: left;
+.el-form-item {
+  margin-bottom: 2px;
+  margin-left: 10px;
 }
 </style>
