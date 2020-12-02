@@ -1,57 +1,48 @@
 <template>
   <div>
-    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop"> </TxTarget>
+    <TxTarget :target="m_target" ref="isdisabled" @start="onStart" @stop="onStop" @height="onHeight"> </TxTarget>
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
+      <template v-slot:other>
+        <div :style="{ height: tableHeight + 'px' }" class="nui-scroll">
+          <div class="el-flex-container">
+            <div class="flex-container">
+              <p class="item none">域名:</p>
+              <p class="item auto">{{ m_domain }}</p>
+            </div>
+            <div class="flex-container">
+              <p class="item none">地址:</p>
+              <p class="item auto">{{ m_addr }}</p>
+            </div>
+            <div class="flex-container">
+              <p class="item none">邮箱:</p>
+              <p class="item auto">{{ m_email }}</p>
+            </div>
+            <div class="flex-container">
+              <p class="item none">注册人:</p>
+              <p class="item auto">{{ m_register }}</p>
+            </div>
+            <div class="flex-container">
+              <p class="item none">电话:</p>
+              <p class="item auto">{{ m_phone }}</p>
+            </div>
 
-    <div id="content">
-      <div>
-        <p><strong>扫描结果</strong></p>
-      </div>
-      <div>
-        <el-row>
-          <el-col>
-            <div>
-              <p>域名:</p>
-              <p>{{ m_domain }}</p>
-            </div>
-            <div>
-              <p>地址:</p>
-              <p>{{ m_addr }}</p>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <p>邮箱:</p>
-            <p>{{ m_email }}</p>
-          </el-col>
-          <el-col :span="8">
-            <p>注册人:</p>
-            <p>{{ m_register }}</p>
-          </el-col>
-          <el-col :span="8">
-            <p>电话:</p>
-            <p>{{ m_phone }}</p>
-          </el-col>
-        </el-row>
-      </div>
-      <div>
-        <div class="left_table">
-          <el-table :data="m_type" style="width: 100%">
-            <el-table-column prop="gtype" label="获取类型" width="150"></el-table-column>
-            <el-table-column prop="CNAME" label="域名"></el-table-column>
-            <el-table-column prop="ip" label="IP"></el-table-column>
-          </el-table>
+            <el-table :data="m_type" style="width: 100%">
+              <el-table-column prop="gtype" label="获取类型" width="150"></el-table-column>
+              <el-table-column prop="CNAME" label="域名"></el-table-column>
+              <el-table-column prop="ip" label="IP"></el-table-column>
+            </el-table>
+            <el-table :data="m_ns" style="width: 100%">
+              <el-table-column prop="nsr" label="NS记录" width="150"></el-table-column>
+              <el-table-column prop="ip" label="IP"></el-table-column>
+            </el-table>
+            <el-table :data="m_mx" style="width: 100%">
+              <el-table-column prop="mxr" label="MX记录" width="150"></el-table-column>
+              <el-table-column prop="ip" label="IP"></el-table-column>
+            </el-table>
+          </div>
         </div>
-        <div class="right_table">
-          <el-table :data="m_ns" style="width: 100%">
-            <el-table-column prop="nsr" label="NS记录" width="150"></el-table-column>
-            <el-table-column prop="ip" label="IP"></el-table-column>
-          </el-table>
-          <el-table :data="m_mx" style="width: 100%">
-            <el-table-column prop="mxr" label="MX记录" width="150"></el-table-column>
-            <el-table-column prop="ip" label="IP"></el-table-column>
-          </el-table>
-        </div>
-      </div>
-    </div>
+      </template>
+    </TxOutput>
   </div>
 </template>
 
@@ -72,6 +63,8 @@ var _data = {
   m_type: [],
   m_ns: [],
   m_mx: [],
+  targeHeight: 0,
+  tableHeight: 0,
 };
 
 export default {
@@ -87,6 +80,8 @@ export default {
       };
       this.m_result = '';
       console.log(task);
+      this.$refs.whatRun.onStart();
+
       ZmqJs.HandleSend(task, (topic) => {
         try {
           var index = topic.indexOf(',');
@@ -127,38 +122,41 @@ export default {
           console.log('error' + e);
         } finally {
           this.$refs.isdisabled.onDisabled(false);
+          this.$refs.whatRun.onStop();
         }
       });
     },
-    onStop() {},
+    onStop() {
+      this.$refs.whatRun.onStop();
+      this.$refs.isdisabled.onDisabled(false);
+    },
+    onHeight(args) {
+      this.targeHeight = args;
+    },
+    onGoBack(args) {
+      this.tableHeight = args;
+    },
   },
 };
 </script>
 
 <style scoped>
-#content {
-  padding: 0px 10px 10px;
-  float: left;
-  width: 100%;
-  height: 100%;
-  background: white;
+.flex-container {
+  overflow: auto;
+  display: flex;
+  margin: 5px;
 }
 
-p {
-  display: inline;
-  float: left;
-  top: 10px;
+.item {
+  margin: 5px;
+  padding: 0;
+  width: 70px;
 }
 
-.left_table {
-  width: 50%;
-  float: left;
-  height: 100%;
+.none {
+  flex: none;
 }
-
-.right_table {
-  width: 50%;
-  height: auto;
-  float: right;
+.auto {
+  flex: auto;
 }
 </style>

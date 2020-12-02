@@ -58,8 +58,7 @@
 
     .flex-container {
       background-color: #F4F7F8;
-      resize: both;
-      overflow: hidden;
+      overflow: auto;
       display: flex;
       margin: 1em;
     }
@@ -82,7 +81,7 @@
     .auto-flex-container {
       overflow: hidden;
       margin: 1em;
-      height: 500px;
+      height: 200px;
       background-color: #cbd0d1;
       display: flex;
       flex-direction: column;
@@ -120,7 +119,6 @@
     }
 
     .el-flex-container {
-      resize: horizontal;
       overflow: hidden;
       margin: 1em;
       background-color: #cbd0d1;
@@ -134,17 +132,11 @@
       min-width: 0;
     }
 
-    .el-no-flex-container {
-      display: flex;
-    }
-
     .nui-scroll {
       border: 1px solid #000;
       width: auto;
-      height: 600px;
       overflow: auto;
       max-height: 700px;
-
     }
 
     .nui-scroll::-webkit-scrollbar {
@@ -213,53 +205,46 @@
 
 <body>
   <div id="app">
-
-    <div class="flex-container">
-      <div class="item auto">auto</div>
-      <div class="item auto">auto</div>
-      <div class="item auto">auto</div>
-    </div>
-
-    <div class="flex-container">
-      <div class="item auto">auto</div>
-      <div class="item initial">initial</div>
-      <div class="item initial">initial</div>
-    </div>
-
-    <div class="flex-container">
-      <div class="item auto">auto</div>
-      <div class="item none">none</div>
-      <div class="item none">none</div>
-    </div>
-
     <div class="el-flex-container">
+      <div class="flex-container">
+        <div class="item auto">auto</div>
+        <div class="item auto">auto</div>
+        <div class="item auto">auto</div>
+      </div>
+
+      <div class="flex-container">
+        <div class="item auto">auto</div>
+        <div class="item initial">initial</div>
+        <div class="item initial">initial</div>
+      </div>
       <div class="flex-container">
         <el-input class="el-item  auto" placeholder="请输入内容"></el-input>
         <el-button class="el-item none" @click="onoffset">默认按钮</el-button>
         <el-button class="el-item none">默认按钮</el-button>
       </div>
-      <div class="el-no-flex-container">
+      <div class="flex-container">
         <div class="item auto">auto</div>
         <div class="item none">none</div>
         <div class="item none">none</div>
       </div>
-
+      <div class="flex-container">
+        <div class="item initial">initial</div>
+        <div class="item none">none</div>
+        <div class="item none">none</div>
+      </div>
+      <div class="flex-container">
+        <div class="item four">4</div>
+        <div class="item two">2</div>
+        <div class="item one">1</div>
+      </div>
+      <div class="auto-flex-container">
+        <div class="item none">none</div>
+        <div class="autoitem auto">auto</div>
+        <div class="item none">none</div>
+      </div>
     </div>
 
-    <div class="auto-flex-container">
-      <div class="item none">none</div>
-      <div class="autoitem auto">auto</div>
-      <div class="item none">none</div>
-    </div>
-
-    <div class="flex-container">
-      <div class="item initial">initial</div>
-      <div class="item none">none</div>
-      <div class="item none">none</div>
-    </div>
-
-
-    <div class="flex-container nui-scroll">
+    <div class="flex-container nui-scroll" style="height: 300px;">
       <section id="app">
         <div id="sample">
           <p>Sample flexbox example</p>
@@ -404,11 +389,6 @@
       </section>
     </div>
 
-    <div class="flex-container">
-      <div class="item four">4</div>
-      <div class="item two">2</div>
-      <div class="item one">1</div>
-    </div>
     <button-counter></button-counter>
     <blog-post v-for="post in posts" :id="post.id" :title="post.title"></blog-post>
     <div class="box" v-bind:class="classObject"></div>
@@ -489,7 +469,7 @@
 
       onoffset() {
         var div = document.getElementById('demo');
-        console.log(div.offsetHeight); 
+        console.log(div.offsetHeight);
         console.log(div.clientHeight);
       }
     },

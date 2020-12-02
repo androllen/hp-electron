@@ -17,7 +17,7 @@
   <!-- built files will be auto injected -->
 </body>
 <style>
-  /* 全局滚动条 */
+  /* 全局滚动条 用于修改 element ui table */
   ::-webkit-scrollbar {
     width: 9px;
     height: 3px;
@@ -31,6 +31,29 @@
 
   /*正常时候的主干部分*/
   ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 1px;
+  }
+
+  .nui-scroll {
+    width: auto;
+    overflow: auto;
+    max-height: 700px;
+  }
+
+  .nui-scroll::-webkit-scrollbar {
+    width: 9px;
+    height: 3px;
+  }
+
+  /*正常情况下滑块的样式*/
+  .nui-scroll::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #dddee0;
+  }
+
+  /*正常时候的主干部分*/
+  .nui-scroll::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 1px;
   }
