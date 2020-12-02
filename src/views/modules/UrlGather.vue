@@ -67,15 +67,11 @@ export default {
       });
     },
     onHeight(args) {
-      this.targeHeight =args;
+      this.targeHeight = args;
     },
   },
 };
 </script>
 
 <style scoped>
-.el-form-item {
-  margin-bottom: 2px;
-  margin-left: 10px;
-}
 </style>

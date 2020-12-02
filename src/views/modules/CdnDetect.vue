@@ -57,8 +57,7 @@ export default {
         } catch (e) {
           console.log('error..');
         } finally {
-          this.$refs.isdisabled.onDisabled(false);
-          this.$refs.whatRun.onStop();
+          this.onStop();
         }
       });
     },
@@ -77,8 +76,4 @@ export default {
 </script>
 
 <style scoped>
-.el-form-item {
-  margin-bottom: 2px;
-  margin-left: 10px;
-}
 </style>
