@@ -1,10 +1,10 @@
 <template>
   <div>
-    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_placeholder" @start="onStart"  @stop="onStop"> </TxTarget>
-    <div id="content">
-      <p><strong>扫描结果</strong></p>
-      <div>
-        <el-table :data="tableData" style="width: 100%">
+    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_placeholder" @start="onStart" @stop="onStop" @height="onHeight">
+    </TxTarget>
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
+      <template v-slot:other>
+        <el-table :data="tableData" style="width: 100%" :height="tableHeight">
           <el-table-column prop="PocName" label="名称" width="200"> </el-table-column>
           <el-table-column prop="PocVersion" label="版本" width="200"></el-table-column>
           <el-table-column prop="Success" label="是否存在漏洞"></el-table-column>
@@ -14,8 +14,8 @@
             </template>
           </el-table-column>
         </el-table>
-      </div>
-    </div>
+      </template>
+    </TxOutput>
   </div>
 </template>
 
@@ -34,6 +34,8 @@ var _data = {
       Success: '',
     },
   ],
+  targeHeight: 0,
+  tableHeight: 0,
 };
 
 let jbossitem = [
@@ -65,6 +67,7 @@ export default {
         },
       };
       console.log(task);
+      this.$refs.whatRun.onStart();
 
       ZmqJs.HandleSend(task, (topic) => {
         try {
@@ -93,23 +96,23 @@ export default {
         } catch (e) {
           console.log('error' + e);
         } finally {
-          this.$refs.isdisabled.onDisabled(false);
+          this.onStop();
         }
       });
     },
-    onStop() {},
+    onStop() {
+      this.$refs.whatRun.onStop();
+      this.$refs.isdisabled.onDisabled(false);
+    },
+    onHeight(args) {
+      this.targeHeight = args;
+    },
+    onGoBack(args) {
+      this.tableHeight = args;
+    },
   },
 };
 </script>
 
 <style scoped>
-#target {
-  background-color: #f7f7f7;
-  padding: 10px 10px 10px 10px;
-}
-
-p {
-  float: left;
-  margin-left: 5px;
-}
 </style>

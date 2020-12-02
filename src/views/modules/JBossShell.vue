@@ -1,43 +1,51 @@
 <template>
   <div>
-    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_placeholder" @start="onStart" @stop="onStop">
+    <TxTarget :target="m_target" ref="isdisabled" :placeholder="m_placeholder" @start="onStart" @stop="onStop" @height="onHeight">
       <template v-slot:goback>
         <el-button class="gobtn" @click="onGo">返回</el-button>
       </template>
     </TxTarget>
-    <div id="content">
-      <p>结果显示：</p>
-      <p>{{ Success }}</p>
-      <p>用户名：</p>
-      <p>{{ Username }}</p>
-      <p>密码：</p>
-      <p>{{ Passwd }}</p>
+    <TxOutput ref="whatRun" :targeHeight="targeHeight" @gotoback="onGoBack">
+      <template v-slot:other>
+        <div class="el-flex-container" :style="{ height: tableHeight + 'px' }">
+          <div id="data">
+            <div class="flex-container">
+              <p class="item none">结果显示：</p>
+              <p class="item auto">{{ Success }}</p>
+            </div>
+            <div class="flex-container">
+              <p class="item none">用户名：</p>
+              <p class="item auto">{{ Username }}</p>
+            </div>
+            <div class="flex-container">
+              <p class="item none">密码：</p>
+              <p class="item auto">{{ Passwd }}</p>
+            </div>
+          </div>
 
-      <div class="result">
-        <el-row>
-          <el-col :span="12"
-            ><div>
-              <p>请求结果</p>
-              <div class="grid-content">
-                <div class="scroll-tb">
-                  <p>{{ RequestResult }}</p>
+          <div>
+            <div class="flex-container">
+              <div class="flex">
+                <p class="item none"><b>请求结果:</b></p>
+                <div class="nui-scroll" :style="{ height: tableHeight - dataHeight + 'px' }">
+                  <p class="item">
+                    {{ RequestResult }}
+                  </p>
                 </div>
               </div>
-            </div></el-col
-          >
-          <el-col :span="12"
-            ><div>
-              <p>应答结果</p>
-              <div class="grid-content">
-                <div class="scroll-tb">
-                  <p>{{ ResponseResult }}</p>
+              <div class="flex">
+                <p class="item none"><b>应答结果:</b></p>
+                <div class="nui-scroll" :style="{ height: tableHeight - dataHeight + 'px' }">
+                  <p class="item">
+                    {{ ResponseResult }}
+                  </p>
                 </div>
               </div>
-            </div></el-col
-          >
-        </el-row>
-      </div>
-    </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </TxOutput>
   </div>
 </template>
 
@@ -53,6 +61,9 @@ var _data = {
   Passwd: '',
   ResponseResult: '',
   RequestResult: '',
+  targeHeight: 0,
+  tableHeight: 0,
+  dataHeight: 0,
 };
 
 export default {
@@ -78,6 +89,7 @@ export default {
         },
       };
       console.log(task);
+      this.$refs.whatRun.onStart();
 
       ZmqJs.HandleSend(task, (topic) => {
         try {
@@ -102,46 +114,55 @@ export default {
         } catch (e) {
           console.log('error' + e);
         } finally {
-          this.$refs.isdisabled.onDisabled(false);
+          this.onStop();
         }
       });
     },
-    onStop() {},
+    onStop() {
+      this.$refs.whatRun.onStop();
+      this.$refs.isdisabled.onDisabled(false);
+    },
     onGo() {
       this.$router.go(-1);
     },
+    onHeight(args) {
+      this.targeHeight = args;
+    },
+    onGoBack(args) {
+      this.tableHeight = args;
+    },
+    onData() {
+      this.dataHeight = document.getElementById('data').offsetHeight;
+    },
+  },
+  mounted() {
+    this.onData();
   },
 };
 </script>
 
 <style scoped>
-#content {
-  margin: 0px 10px 10px;
-}
-p {
-  float: left;
-  margin-right: 7px;
+.flex-container {
+  overflow: auto;
+  display: flex;
+  padding: 5px;
 }
 
-.result {
-  clear: both;
+.item {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.auto {
+  flex: auto;
 }
 
-.grid-content {
-  clear: both;
-  border-radius: 4px;
-  border: 1px;
-  border-style: solid;
-  border-color: gray;
-  margin: 10px;
-  height: 600px;
+.flex {
+  flex: 1;
 }
 
-.scroll-tb {
-  overflow: scroll;
-  overflow-x: hidden;
-  scrollbar-track-color: #95a6aa;
-  scrollbar-darkshadow-color: #85989c;
+.none {
+  flex: none;
 }
 .gobtn {
   float: left;
