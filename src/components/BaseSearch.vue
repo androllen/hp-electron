@@ -36,17 +36,17 @@ export default {
     },
     loadAll() {
       return [
-        { value: 'Cdn 检测', address: '/info_cdn' },
-        { value: 'Waf 检测', address: '/info_waf' },
-        { value: '邮箱地址收集', address: '/info_email' },
-        { value: '子域名爆破', address: '/info_subdomain' },
-        { value: 'WhoIs 反查', address: '/info_whois' },
-        { value: 'JBoss 检测', address: '/exp_jboss_scan' },
-        { value: 'Jenkins 爆破', address: '/exp_jenkins_check' },
-        { value: 'URL 收集', address: '/tool_url' },
-        { value: 'MD5 查询', address: '/tool_md5' },
-        { value: '密码生成器', address: '/tool_pwd' },
-        { value: '加解密', address: '/tool_decrypt' },
+        { value: '测试A', address: '/info_cdn' },
+        { value: '测试A', address: '/info_waf' },
+        { value: '测试A', address: '/info_email' },
+        { value: '测试A', address: '/info_subdomain' },
+        { value: '测试A', address: '/info_whois' },
+        { value: '测试A', address: '/exp_jboss_scan' },
+        { value: '测试A', address: '/exp_jenkins_check' },
+        { value: '测试A', address: '/tool_url' },
+        { value: '测试A', address: '/tool_md5' },
+        { value: '测试A', address: '/tool_pwd' },
+        { value: '测试A', address: '/tool_decrypt' },
       ];
     },
     handleSelect(item) {

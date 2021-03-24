@@ -69,7 +69,7 @@ import ZmqJs from '../../service/zmq';
 import { ModeMX, ModeNs } from '../../model';
 
 var _data = {
-  m_target: 'http://www.4dogs.cn/',
+  m_target: 'http://www.51job.cn/',
   m_disable: false,
   m_result: '',
   m_domain: '',

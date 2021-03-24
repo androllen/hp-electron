@@ -6,31 +6,31 @@
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>信息收集</span>
+              <span>测试A</span>
             </template>
-            <el-menu-item index="/info_cdn">Cdn 检测</el-menu-item>
-            <el-menu-item index="/info_waf">Waf 检测</el-menu-item>
-            <el-menu-item index="/info_email">邮箱地址收集</el-menu-item>
-            <el-menu-item index="/info_subdomain">子域名爆破</el-menu-item>
-            <el-menu-item index="/info_whois">WhoIs 反查</el-menu-item>
+            <el-menu-item index="/info_cdn">测试A</el-menu-item>
+            <el-menu-item index="/info_waf">测试A</el-menu-item>
+            <el-menu-item index="/info_email">测试A</el-menu-item>
+            <el-menu-item index="/info_subdomain">测试A</el-menu-item>
+            <el-menu-item index="/info_whois">测试A</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-menu"></i>
-              <span>专用漏洞</span>
+              <span>测试B</span>
             </template>
-            <el-menu-item index="/exp_jboss_scan">JBoss 检测</el-menu-item>
-            <el-menu-item index="/exp_jenkins_check">Jenkins 爆破</el-menu-item>
+            <el-menu-item index="/exp_jboss_scan">测试B</el-menu-item>
+            <el-menu-item index="/exp_jenkins_check">测试B</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-document"></i>
-              <span>辅助工具</span>
+              <span>测试C</span>
             </template>
-            <el-menu-item index="/tool_url">URL 收集</el-menu-item>
-            <el-menu-item index="/tool_md5">MD5 查询</el-menu-item>
-            <el-menu-item index="/tool_pwd">密码生成器</el-menu-item>
-            <el-menu-item index="/tool_decrypt">加解密</el-menu-item>
+            <el-menu-item index="/tool_url">测试C</el-menu-item>
+            <el-menu-item index="/tool_md5">测试C</el-menu-item>
+            <el-menu-item index="/tool_pwd">测试C</el-menu-item>
+            <el-menu-item index="/tool_decrypt">测试C</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-col>
