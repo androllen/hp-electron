@@ -18,7 +18,7 @@ import { GUID } from '@/utils';
 import ZmqJs from '@/service/zmq';
 
 var _data = {
-  m_target: 'http://www.4dogs.cn',
+  m_target: 'http://www.github.cn',
   m_tableData: [],
   targeHeight: 0,
   tableHeight: 0,

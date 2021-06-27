@@ -33,7 +33,7 @@ import { ModelUrl } from '../../model';
 import { fileContents } from '../../utils/json';
 
 var _data = {
-  m_target: '4dogs',
+  m_target: 'github',
   m_tableData: [],
   search: 'Baidu',
   json: fileContents,

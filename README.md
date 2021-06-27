@@ -31,7 +31,7 @@ yarn add zeromq
 ```
 cd ./tx-electron\dist_electron\win-unpacked\resources
 # put TXThrift to this dir 
-mklink /d TXThrift  D:\4Dogs\V3.0_TX\TXThrift
+mklink /d TXThrift  D:\github\V3.0_TX\TXThrift
 ```
 
 ### Customize configuration

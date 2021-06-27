@@ -2,7 +2,7 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
-        appId: "com.4dogs.tx",
+        appId: "com.github.tx",
         // app.exe name
         productName: "TxMain",
         // options placed here will be merged with default configuration and passed to electron-builder

@@ -157,8 +157,8 @@ export default {
     return {
       m_disable: false,
       labelPosition: 'right',
-      m_fullName: 'si wei chuang,zhi ad',
-      m_nickname: '4dogs',
+      m_fullName: 'alita,zhi ad',
+      m_nickname: 'github',
       m_datetime: '20091010',
       m_phonenum: '15212366598',
       m_oldpwd: '8898',
