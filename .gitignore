@@ -28,3 +28,4 @@ pnpm-debug.log*
 /public/md5.db
 /public/sql.db
 /.vscode/settings.json
+/.vs/slnx.sqlite
