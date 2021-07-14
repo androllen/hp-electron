@@ -37,7 +37,7 @@ import ZmqJs from '../../service/zmq';
 import { ModelUrl } from '../../model';
 
 var _data = {
-  m_target: '4dogs',
+  m_target: 'Happy',
   m_disable: false,
   m_tableData: [],
   search: 'Baidu',

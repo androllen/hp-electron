@@ -7,7 +7,7 @@ const execFile = util.promisify(require('child_process').execFile);
 
 //https://www.cnblogs.com/fger/p/11994968.html
 //http://nodejs.cn/api/child_process.html
-//mklink /d TXThrift D:\4Dogs\V3.0_TX\TXThrift
+//mklink /d TXThrift D:\Happy\V3.0_TX\TXThrift
 //start zmq server 
 export async function getShell() {
 	console.log('dirname', __dirname);
