@@ -50,7 +50,7 @@ ZmqJs.getInstance = (function () {
 // var task = {
 // 	id: "023feac1-4a5d-49c9-b540-8cac4241c99a",
 // 	scriptid: "cdn_detect",
-// 	parameters: { url: 'http://www.ogs.cn/' },
+// 	parameters: { url: 'http://www.Happy.cn/' },
 // };
 
 // var add = ZmqJs.getInstance()

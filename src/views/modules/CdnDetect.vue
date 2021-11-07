@@ -35,7 +35,7 @@ import { GUID } from "../../utils";
 import ZmqJs from "../../service/zmq";
 
 var _data = {
-  m_target: "http://www.51job.cn",
+  m_target: "http://www.Happy.cn",
   m_disable: false,
   m_tableData: [],
 };
