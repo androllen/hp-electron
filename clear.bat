@@ -9,7 +9,15 @@ set   ss=%CurTime:~6,2%
 set   beforeDateTime=%mm%:%ss%
 set   beforeDateTime
 
-for /d %%D in (*) do rd /s /q "%%D"
+for /d %%i in (*.*) do (
+  echo %%i
+  rd /s /q "%%i"
+)
+
+
+for  %%i in (*.*) do (
+  del /s /q "%%i"
+)
 
 set   CurTime=%time%
 set   mm=%CurTime:~3,2%
