@@ -7,7 +7,7 @@ set   CurTime=%time%
 set   mm=%CurTime:~3,2%
 set   ss=%CurTime:~6,2%
 set   beforeDateTime=%mm%:%ss%
-set   beforeDateTime
+
 
 for /d %%i in (*.*) do (
   echo %%i
@@ -23,7 +23,11 @@ set   CurTime=%time%
 set   mm=%CurTime:~3,2%
 set   ss=%CurTime:~6,2%
 set   afterDateTime=%mm%:%ss%
+set   beforeDateTime
 set   afterDateTime
+
+cd ..
+rd /s/q node_modules
 
 echo Clear OVER!
 echo. & pause 
